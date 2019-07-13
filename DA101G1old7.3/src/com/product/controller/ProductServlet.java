@@ -1,0 +1,367 @@
+package com.product.controller;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import com.product.model.ProductService;
+import com.product.model.ProductVO;
+
+
+@WebServlet("/ProductServlet1")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
+public class ProductServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
+	}
+
+	
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		String action = req.getParameter("action");
+		
+		
+		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String str = req.getParameter("product_no");
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.add("請輸入員工編號");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("front-end/product/product_select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				String product_no = null;
+				try {
+					product_no = new String(str);
+				} catch (Exception e) {
+					errorMsgs.add("員工編號格式不正確");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("front-end/product/product_select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************2.開始查詢資料*****************************************/
+				ProductService productSvc = new ProductService();
+				ProductVO productVO = productSvc.getOneProduct(product_no);
+				if (productVO == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("front-end/product/product_select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("productVO", productVO); // 資料庫取出的empVO物件,存入req
+				String url = "front-end/product/listOneProduct.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("front-end/product/product_select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				String product_no = new String(req.getParameter("product_no"));
+				
+				/***************************2.開始查詢資料****************************************/
+				ProductService productSvc = new ProductService();
+				ProductVO productVO = productSvc.getOneProduct(product_no);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("productVO", productVO);         // 資料庫取出的empVO物件,存入req
+				String url = "front-end/product/update_product_input.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("front-end/product/listAllProduct.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+		
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String product_no = new String(req.getParameter("product_no").trim());
+				
+				String merchant_no = req.getParameter("merchant_no").trim();
+				if (merchant_no == null || merchant_no.trim().length() == 0) {
+					errorMsgs.add("商品編號請勿空白");
+				}
+				
+				
+				String product_name = req.getParameter("product_name").trim();
+				if (product_name == null || product_name.trim().length() == 0) {
+					errorMsgs.add("商品名稱請勿空白");
+				}
+				
+				
+				String product_status = req.getParameter("product_status").trim();
+				if (product_status == null || product_status.trim().length() == 0) {
+					errorMsgs.add("商品狀態請勿空白");
+				}
+				
+				Integer product_pr = new Integer(req.getParameter("product_pr").trim());
+				
+				
+				String product_typ = req.getParameter("product_typ").trim();
+				if (product_typ == null || product_typ.trim().length() == 0) {
+					errorMsgs.add("商品種類請勿空白");
+				}
+				
+				String product_pn = req.getParameter("product_pn").trim();
+				if (product_pn == null || product_pn.trim().length() == 0) {
+					errorMsgs.add("廣告促銷狀態請勿空白");
+				}
+				
+				
+				String product_ps = req.getParameter("product_ps").trim();
+				if (product_ps == null || product_ps.trim().length() == 0) {
+					errorMsgs.add("廣告促銷狀態請勿空白");
+				}
+				
+				
+				Integer product_quan = new Integer(req.getParameter("product_quan").trim());
+				
+				byte[] product_img = null;
+				Collection<Part> parts = req.getParts();
+				
+				for (Part part : parts) {
+					if (part.getContentType()!=null) {
+						InputStream in = part.getInputStream();
+						product_img = new byte[in.available()];
+						in.read(product_img);
+						in.close();
+					}
+				}
+
+				ProductVO productVO = new ProductVO();
+				productVO.setProduct_no(product_no);
+				productVO.setMerchant_no(merchant_no);
+				productVO.setProduct_name(product_name);
+				productVO.setProduct_status(product_status);
+				productVO.setProduct_pr(product_pr);
+				productVO.setProduct_typ(product_typ);
+				productVO.setProduct_pn(product_pn);
+				productVO.setProduct_ps(product_ps);
+				productVO.setProduct_img(product_img);
+				productVO.setProduct_quan(product_quan);
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("productVO", productVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("front-end/product/update_product_input.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷
+				}
+				
+				/***************************2.開始修改資料*****************************************/
+				ProductService productSvc = new ProductService();
+				productVO = productSvc.updateProduct(product_no, merchant_no, product_name, product_status, product_pr, product_typ, product_pn, product_ps, product_img, product_quan);
+				
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("productVO", productVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				String url = "front-end/product/listOneProduct.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("front-end/product/update_product_input.jsp");
+				failureView.forward(req, res);
+			}
+		}
+
+        if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+
+				String merchant_no = req.getParameter("merchant_no").trim();
+				if (merchant_no == null || merchant_no.trim().length() == 0) {
+					errorMsgs.add("商品編號請勿空白");
+				}
+				
+				
+				String product_name = req.getParameter("product_name").trim();
+				if (product_name == null || product_name.trim().length() == 0) {
+					errorMsgs.add("商品名稱請勿空白");
+				}
+				
+				
+				String product_status = req.getParameter("product_status").trim();
+				if (product_status == null || product_status.trim().length() == 0) {
+					errorMsgs.add("商品狀態請勿空白");
+				}
+				
+				Integer product_pr = new Integer(req.getParameter("product_pr").trim());
+				
+				
+				String product_typ = req.getParameter("product_typ").trim();
+				if (product_typ == null || product_typ.trim().length() == 0) {
+					errorMsgs.add("商品種類請勿空白");
+				}
+				
+				String product_pn = req.getParameter("product_pn").trim();
+				if (product_pn == null || product_pn.trim().length() == 0) {
+					errorMsgs.add("廣告促銷狀態請勿空白");
+				}
+				
+				
+				String product_ps = req.getParameter("product_ps").trim();
+				if (product_ps == null || product_ps.trim().length() == 0) {
+					errorMsgs.add("廣告促銷狀態請勿空白");
+				}
+				
+				
+				Integer product_quan = new Integer(req.getParameter("product_quan").trim());
+				
+				byte[] product_img = null;
+				Collection<Part> parts = req.getParts();
+				
+				for (Part part : parts) {
+					if (part.getContentType()!=null) {
+						InputStream in = part.getInputStream();
+						product_img = new byte[in.available()];
+						in.read(product_img);
+						in.close();
+					}
+				}
+				
+				
+
+				ProductVO productVO = new ProductVO();
+				productVO.setMerchant_no(merchant_no);
+				productVO.setProduct_name(product_name);
+				productVO.setProduct_status(product_status);
+				productVO.setProduct_pr(product_pr);
+				productVO.setProduct_typ(product_typ);
+				productVO.setProduct_pn(product_pn);
+				productVO.setProduct_ps(product_ps);
+				productVO.setProduct_img(product_img);
+				productVO.setProduct_quan(product_quan);
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("productVO", productVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("front-end/product/addProduct.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				/***************************2.開始新增資料***************************************/
+				ProductService productSvc = new ProductService();
+				productVO = productSvc.addProduct(merchant_no, product_name, product_status, product_pr, product_typ, product_pn, product_ps, product_img, product_quan);
+				
+				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				String url = "front-end/product/listAllProduct.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				successView.forward(req, res);				
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("front-end/product/addProduct.jsp");
+				failureView.forward(req, res);
+			}
+		}
+//		
+//		
+//		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+//
+//			List<String> errorMsgs = new LinkedList<String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//	
+//			try {
+//				/***************************1.接收請求參數***************************************/
+//				Integer empno = new Integer(req.getParameter("empno"));
+//				
+//				/***************************2.開始刪除資料***************************************/
+//				EmpService empSvc = new EmpService();
+//				empSvc.deleteEmp(empno);
+//				
+//				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+//				String url = "/emp/listAllEmp.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+//				successView.forward(req, res);
+//				
+//				/***************************其他可能的錯誤處理**********************************/
+//			} catch (Exception e) {
+//				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/emp/listAllEmp.jsp");
+//				failureView.forward(req, res);
+//			}
+//		}
+	}
+}
