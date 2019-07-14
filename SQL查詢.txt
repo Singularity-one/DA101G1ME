@@ -44,3 +44,24 @@ HttpSession session = req.getSession();
     	if(!action.equals("1")) {
 
     		session.setAttribute("About", "1");
+
+(前台廠商)
+查詢單一廠商有關訂單和商品有廣告
+SELECT order_no FROM order_detail
+WHERE  order_status='O2' AND order_no IN
+(SELECT order_no FROM order_list WHERE product_no IN
+(SELECT product_no FROM product WHERE product_pn='D1' AND merchant_no='ME00001' ));
+
+訂單複合(訂單編號,訂單狀態,總金額,訂單時間)
+訂單明細複合(商品單價,訂購數量)
+商品複合(商品編號,商品種類,廣告促銷狀態)
+
+(後台)訂單複合
+SELECT order_no FROM order_detail
+WHERE  order_no IN
+(SELECT order_no FROM order_list WHERE product_no IN
+(SELECT product_no FROM product));
+
+訂單複合(訂單編號,訂單狀態,總金額,訂單時間)
+訂單明細複合(商品單價,訂購數量)
+商品複合(商品編號,商品種類,廣告促銷狀態)
