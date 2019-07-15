@@ -46,6 +46,11 @@ public class PromotionJNDIDAO implements PromotionDAO_interface{
 				"SELECT promotion_no,merchant_no,product_no,promotion_name,to_char(promotion_start,'yyyy-mm-dd') promotion_start,to_char(promotion_end,'yyyy-mm-dd') promotion_end,promotion_pr,promotion_ps,promotion_status,promotion_img FROM promotion where promotion_status = ?";
 			
 			
+			//用商品編號找出廣告VO(廣告折扣用)
+			private static final String GET_ONE_PRODUCTNO = 
+				"SELECT promotion_no,merchant_no,product_no,promotion_name,to_char(promotion_start,'yyyy-mm-dd') promotion_start,to_char(promotion_end,'yyyy-mm-dd') promotion_end,promotion_pr,promotion_ps,promotion_status,promotion_img FROM promotion where product_no = ?";
+				
+			
 			
 		@Override
 		public void insert(PromotionVO promotionVO) {
@@ -478,6 +483,73 @@ public class PromotionJNDIDAO implements PromotionDAO_interface{
 				}
 			}
 			return list;
+		}
+		
+		
+		
+		//用商品編號找出廣告VO(廣告折扣用)
+		@Override
+		public PromotionVO findByProductNo(String product_no) {
+			PromotionVO promotionVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ONE_PRODUCTNO);
+
+				pstmt.setString(1, product_no);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					// empVo 也稱為 Domain objects
+
+					promotionVO = new PromotionVO();
+					promotionVO.setPromotion_no(rs.getString("promotion_no"));
+					promotionVO.setMerchant_no(rs.getString("merchant_no"));
+					promotionVO.setProduct_no(rs.getString("product_no"));
+					promotionVO.setPromotion_name(rs.getString("promotion_name"));
+					promotionVO.setPromotion_start(rs.getDate("promotion_start"));
+					promotionVO.setPromotion_end(rs.getDate("promotion_end"));
+					promotionVO.setPromotion_pr(rs.getDouble("promotion_pr"));
+					promotionVO.setPromotion_ps(rs.getString("promotion_ps"));
+					promotionVO.setPromotion_status(rs.getString("promotion_status"));
+					promotionVO.setPromotion_img(rs.getBytes("promotion_img"));
+					
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return promotionVO;
 		}
 		
 		

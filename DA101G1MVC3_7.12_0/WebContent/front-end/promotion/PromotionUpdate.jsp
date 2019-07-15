@@ -209,6 +209,8 @@ PromotionVO promotionVO = (PromotionVO) request.getAttribute("promotionVO"); //M
 		<input type="hidden" name="merchant_no" value="<%=promotionVO.getMerchant_no()%>">
 		<input type="hidden" name="product_no" value="<%=promotionVO.getProduct_no()%>">
 		<input type="hidden" name="promotion_name" value="<%=promotionVO.getPromotion_name()%>">
+		<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> <!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+		<input type="hidden" name="whichPage"  value="<%=request.getParameter("whichPage")%>">  <!--只用於:istAllEmp.jsp-->
 		<input type="hidden" name="promotion_status" value="1">
 		<input type="submit" value="送出修改"></FORM>
 

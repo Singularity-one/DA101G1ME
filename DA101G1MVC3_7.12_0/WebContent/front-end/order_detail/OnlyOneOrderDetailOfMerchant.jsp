@@ -34,13 +34,11 @@
 
 <style>
   table {
-	width: 800px;
-	background-color: white;
+	width: 918px;
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
   table, th, td {
-    border: 1px solid #CCCCFF;
   }
   th, td {
     padding: 5px;
@@ -48,18 +46,6 @@
   }
 </style>
 
-<style type="text/css">
-     #aside {
-	width: 300px;
-	height: 100vw;
-	text-align: center;
-	background-color: #63808F;
-	padding: 20px 10px;
-	float: right;
-	font-family: sans-serif;
-	color: #FFF;
-	}
-</style>
 
 
 </head>
@@ -89,8 +75,8 @@
        <input type="submit" value="送出">
 </FORM>
 
-<table>
-	<tr>
+<table style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
+	<tr style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
 		<th>訂單編號</th>
 		<th>會員編號</th>
 		<th>廠商編號</th>
@@ -100,7 +86,6 @@
 		<th>取貨地址</th>
 		<th>收件人姓名</th>
 		<th>收件人電話</th>
-		<th></th>
 		<th></th>
 	</tr>
 	<%@ include file="page/page1.file" %> 
@@ -130,13 +115,6 @@
 			<td>${order_detailVO.order_cusadr}</td>
 			<td>${order_detailVO.order_cusname}</td>
 			<td>${order_detailVO.order_cusphone}</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" style="margin-bottom: 0px;">
-			     <input type="submit" value="出貨">
-			     <input type="hidden" name="order_no"  value="${order_detailVO.order_no}">
-			     <input type="hidden" name="order_status"  value="O2">
-			     <input type="hidden" name="action"	value="getOneOrder_detailStatus_Update"></FORM>
-			</td>
 			<td>
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_listServlet1" style="margin-bottom: 0px;">
 			     <input type="submit" value="明細">

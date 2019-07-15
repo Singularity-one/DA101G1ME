@@ -86,5 +86,9 @@ public class PromotionService {
 		return dao.getOneStatusOfAll(promotion_status);
 	}
 	
+	//用商品編號找出廣告VO(廣告折扣用)
+	public PromotionVO findByProductNo(String product_no) {
+		return dao.findByProductNo(product_no);
+	}
 	
 }

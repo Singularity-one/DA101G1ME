@@ -127,21 +127,21 @@
 	 		padding-bottom:50px;  /* 下內邊距 */
    	    }
     </style>
-    <style>
-  	table {
-		width: 800px;
-		background-color: white;
-		margin-top: 5px;
-		margin-bottom: 5px;
-  	}
-  	table, th, td {
-    	border: 1px solid #CCCCFF;
-  	}
-  	th, td {
-    	padding: 5px;
-    	text-align: center;
-  	}
+    
+<style>
+  table {
+	width: 918px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  }
+  table, th, td {
+  }
+  th, td {
+    padding: 5px;
+    text-align: center;
+  }
 </style>
+
   </head>
 
   <body>
@@ -169,8 +169,8 @@
 				
 			</div>
 <div>
-<table>
-	<tr>
+<table style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
+	<tr style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
 		<th>訂單編號</th>
 		<th>商品編號</th>
 		<th>訂單中商品金額</th>

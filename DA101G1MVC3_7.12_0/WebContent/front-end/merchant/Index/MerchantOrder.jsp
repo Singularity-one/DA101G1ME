@@ -146,6 +146,7 @@
 				<div class="list-group list-group-flush">
 					<div class="list-group-item" style="font-family:monospace;font-size: 18px;"><b>選單</b></div>
 					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantUpdate.jsp" class="list-group-item">廠商資料</a>
+					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantOrder.jsp" class="list-group-item">訂單</a>
 					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantLogin.jsp" class="list-group-item">回廠商頁面</a>
 				</div>
 			</div>

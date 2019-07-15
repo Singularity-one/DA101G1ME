@@ -26,7 +26,7 @@ justify-content:center;
 }
 
 .admin{
-width: 1200px;
+width: 1037px;
 height:80px;
 margin:0;
 padding:0;
@@ -100,7 +100,7 @@ background-color:black;
 
 <ul class="list-group list-group-flush ">
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/order_detail/portal.jsp'>查詢</a></li>
-  <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/order_detail/listAllOrder_detail.jsp'>訂單全部</a></li>
+  <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/order_detail/Order_detail.jsp'>訂單全部</a></li>
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/Index/portal.jsp'>回首頁</a></li>
 </ul>
 </div>
@@ -120,7 +120,7 @@ background-color:black;
 	</ul>
 </c:if>
 
-<div class="content container">
+<div class="content container" style=" display: flex; ">
 
 <div class="status" style="background-color:#d6d6ad;">
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>//Order_detailServlet1" >
@@ -187,10 +187,25 @@ background-color:black;
 </FORM>
 </div>
 
+</div>
+
+<div>
+<%if (request.getAttribute("order_detailVO")!=null){%>
+       <jsp:include page="listOneOrder_detail.jsp" flush="true"/>
+				<%-- <c:import url="<%=request.getContextPath()%>/front-end/promotion/OnlyOnePromotionOfMerchant.jsp"> --%>
+				<%-- </c:import> --%>
+				<%-- //動態不行用<%=request.getContextPath()%> --%>
+<%} %>
 
 
-</div>
-</div>
+<%if (request.getAttribute("List<Order_detailVO>")!=null){%>
+       <jsp:include page="OneMonthOfOrder_detailByMerchant.jsp" flush="true"/>
+				<%-- <c:import url="<%=request.getContextPath()%>/front-end/promotion/OnlyOnePromotionOfMerchant.jsp"> --%>
+				<%-- </c:import> --%>
+				<%-- //動態不行用<%=request.getContextPath()%> --%>
+<%} %>
+
+
 </div>
 
 

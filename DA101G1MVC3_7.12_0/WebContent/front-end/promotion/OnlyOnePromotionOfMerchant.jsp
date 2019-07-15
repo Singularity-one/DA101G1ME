@@ -17,52 +17,20 @@
 <head>
 <meta charset="BIG5">
 <title>所有廣告資料 - listAllPromotion.jsp</title>
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
 
 <style>
   table {
-	width: 800px;
-	background-color: white;
+	width: 918px;
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
   table, th, td {
-    border: 1px solid #CCCCFF;
   }
   th, td {
     padding: 5px;
     text-align: center;
   }
 </style>
-
-<style type="text/css">
-     #aside {
-	width: 300px;
-	height: 100vw;
-	text-align: center;
-	background-color: #63808F;
-	padding: 20px 10px;
-	float: right;
-	font-family: sans-serif;
-	color: #FFF;
-	}
-</style>
-
 
 </head>
 <body bgcolor='white'>
@@ -78,23 +46,23 @@
 	</ul>
 </c:if>
 
-<table>
-	<tr>
+<table style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;" >
+	<tr style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
 		<th>商品編號</th>
 		<th>廣告名稱</th>
-		<th>廣告開始日期</th>
-		<th>廣告結束日期</th>
-		<th>商品促銷折扣</th>
+		<th>開始日期</th>
+		<th>結束日期</th>
+		<th>促銷折扣</th>
 		<th>廣告說明</th>
 		<th>廣告狀態</th>
 		<th>廣告圖檔</th>
-		<th></th>
-		<th></th>
+		<th>修改</th>
+		<th>下架</th>
 	</tr>
-	<%@ include file="page/page1.file" %>   
+	<%@ include file="pages/page1.file" %>   
 	<c:forEach var="promotionVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
-		<tr>
+		<tr ${(promotionVO.promotion_no==param.promotion_no) ? 'bgcolor=#E0FFFF':''}>
 			<td>${promotionVO.product_no}</td>
 			<td>${promotionVO.promotion_name}</td>
 			<td>${promotionVO.promotion_start}</td>
@@ -120,19 +88,24 @@
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/PromotionServlet1" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="promotion_no"  value="${promotionVO.promotion_no}">
+			     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
+			     <input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller-->
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/PromotionServlet1" style="margin-bottom: 0px;">
 			     <input type="submit" value="下架">
 			     <input type="hidden" name="promotion_no"  value="${promotionVO.promotion_no}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			     <input type="hidden" name="promotion_status"  value="B3">
+			     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
+			     <input type="hidden" name="whichPage"	value="<%=whichPage%>">
+			     <input type="hidden" name="action"	value="getOnePromotionStatus_Update"></FORM>
 			  
 			</td>
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page/page2.file" %>
+<%@ include file="pages/page2.file" %>
 
 </body>
 </html>

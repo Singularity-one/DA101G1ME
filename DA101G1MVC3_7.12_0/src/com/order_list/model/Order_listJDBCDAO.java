@@ -383,14 +383,14 @@ public class Order_listJDBCDAO implements Order_listDAO_interface {
 //		}
 		
 		// 查詢單一訂單明細
-		List<Order_listVO> list = dao.findOneOrder_listByOrder_no("OR00001");
-		for (Order_listVO ollist : list) {
-			System.out.print(ollist.getOrder_no() + ",");
-			System.out.print(ollist.getProduct_no() + ",");
-			System.out.print(ollist.getOrder_product_pr() + ",");
-			System.out.print(ollist.getOrder_quan());
-			System.out.println();
-		}
+//		List<Order_listVO> list = dao.findOneOrder_listByOrder_no("OR00001");
+//		for (Order_listVO ollist : list) {
+//			System.out.print(ollist.getOrder_no() + ",");
+//			System.out.print(ollist.getProduct_no() + ",");
+//			System.out.print(ollist.getOrder_product_pr() + ",");
+//			System.out.print(ollist.getOrder_quan());
+//			System.out.println();
+//		}
 		
 	}
 

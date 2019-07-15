@@ -88,7 +88,7 @@ public class PromotionServlet2 extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("promotionVO", promotionVO); // 資料庫取出的promotionVO物件,存入req
-				String url = "/back-end/promotion/listOnePromotion.jsp";
+				String url = "/back-end/promotion/portal.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOnePromotion.jsp
 				successView.forward(req, res);
 

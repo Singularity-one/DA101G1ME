@@ -43,7 +43,7 @@ public class MerchantServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("front-end/merchant/merchant_select_page.jsp");
+							.getRequestDispatcher("back-end/merchant/portal.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -57,7 +57,7 @@ public class MerchantServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("back-end/merchant/backEndMerchant_select_page.jsp");
+							.getRequestDispatcher("back-end/merchant/portal.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -72,14 +72,14 @@ public class MerchantServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("back-end/merchant/backEndMerchant_select_page.jsp");
+							.getRequestDispatcher("back-end/merchant/portal.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("merchantVO", merchantVO); // 資料庫取出的merchantVO物件,存入req
-				String url = "back-end/merchant/listOneMerchant.jsp";
+				String url = "back-end/merchant/portal.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneMerchant.jsp
 				successView.forward(req, res);
 
@@ -87,7 +87,7 @@ public class MerchantServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("back-end/merchant/backEndMerchant_select_page.jsp");
+						.getRequestDispatcher("back-end/merchant/portal.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -101,6 +101,9 @@ public class MerchantServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
+			String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【MerchantUpdate.jsp】 或  【】 或 【】		
+			
+			
 			try {
 				/***************************1.接收請求參數****************************************/
 				String merchant_no = new String(req.getParameter("merchant_no"));
@@ -112,7 +115,7 @@ public class MerchantServlet extends HttpServlet {
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("merchantVO", merchantVO);         // 資料庫取出的merchantVO物件,存入req
 //				String url = "front-end/merchant/update_merchant_input.jsp";
-				String url = "front-end/merchant/update_MerchantUpdate2.jsp";
+				String url = "front-end/merchant/update_MerchantUpdate.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_merchant_input.jsp
 				successView.forward(req, res);
 
@@ -121,7 +124,7 @@ public class MerchantServlet extends HttpServlet {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
 //						.getRequestDispatcher("front-end/merchant/listAllMerchant.jsp");
-						.getRequestDispatcher("front-end/merchant/Index/MerchantLogin.jsp");
+						.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
 		}
@@ -134,6 +137,8 @@ public class MerchantServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【MerchantUpdate.jsp】 或  【】 或 【】
 		
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
@@ -197,19 +202,25 @@ public class MerchantServlet extends HttpServlet {
 					errorMsgs.add("廠商說明請勿空白");
 				}
 				
+				
+
 				byte[] merchant_img = null;
+
 				Collection<Part> parts = req.getParts();
-				
-				for (Part part : parts) {
-					if (part.getContentType()!=null) {
-						InputStream in = part.getInputStream();
-						merchant_img = new byte[in.available()];
-						in.read(merchant_img);
-						in.close();
+					
+					for (Part part : parts) {
+						if (part.getContentType()!=null) {
+							InputStream in = part.getInputStream();
+							merchant_img = new byte[in.available()];
+							in.read(merchant_img);
+							in.close();
+						}
 					}
-				}
+					
 				
-				
+			    if(merchant_img == null || merchant_img.length == 0) {
+			    	 merchant_img = new MerchantService().getOneMerchant(merchant_no).getMerchant_img();
+			    }
 
 				MerchantVO merchantVO = new MerchantVO();
 				merchantVO.setMerchant_no(merchant_no);
@@ -229,7 +240,7 @@ public class MerchantServlet extends HttpServlet {
 					req.setAttribute("merchantVO", merchantVO); // 含有輸入格式錯誤的merchantVO物件,也存入req
 					RequestDispatcher failureView = req
 //							.getRequestDispatcher("front-end/merchant/update_merchant_input.jsp");
-							.getRequestDispatcher("front-end/merchant/Index/MerchantLogin.jsp");
+							.getRequestDispatcher("front-end/merchant/update_MerchantUpdate.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -241,8 +252,9 @@ public class MerchantServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("merchantVO", merchantVO); // 資料庫update成功後,正確的的merchantVO物件,存入req
-//				String url = "front-end/merchant/listOneMerchant.jsp";
-				String url = "front-end/merchant/Index/MerchantUpdate.jsp";
+				
+//				String url = "front-end/merchant/Index/MerchantUpdate.jsp";
+				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMerchant.jsp
 				successView.forward(req, res);
 
@@ -251,7 +263,7 @@ public class MerchantServlet extends HttpServlet {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
 //						.getRequestDispatcher("front-end/merchant/update_merchant_input.jsp");
-						.getRequestDispatcher("front-end/merchant/Index/MerchantLogin.jsp");
+						.getRequestDispatcher("front-end/merchant/update_MerchantUpdate.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -415,6 +427,8 @@ public class MerchantServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String requestURL = req.getParameter("requestURL");
 		
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
@@ -440,7 +454,7 @@ public class MerchantServlet extends HttpServlet {
 					req.setAttribute("merchantVO", merchantVO); // 含有輸入格式錯誤的merchantVO物件,也存入req
 					RequestDispatcher failureView = req
 //							.getRequestDispatcher("front-end/merchant/update_merchant_input.jsp");
-							.getRequestDispatcher("back-end/merchant/listAllMerchant.jsp");
+							.getRequestDispatcher("back-end/merchant/Merchant.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -452,7 +466,7 @@ public class MerchantServlet extends HttpServlet {
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("merchantVO", merchantVO); // 資料庫update成功後,正確的的merchantVO物件,存入req
 //				String url = "front-end/merchant/listOneMerchant.jsp";
-				String url = "back-end/merchant/listAllMerchant.jsp";
+				String url = "back-end/merchant/Merchant.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listAllMerchantUpdate.jsp
 				successView.forward(req, res);
 
@@ -461,7 +475,7 @@ public class MerchantServlet extends HttpServlet {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
 //						.getRequestDispatcher("front-end/merchant/update_merchant_input.jsp");
-						.getRequestDispatcher("back-end/merchant/listAllMerchant.jsp");
+						.getRequestDispatcher("back-end/merchant/Merchant.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -483,7 +497,7 @@ public class MerchantServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("back-end/merchant/backEndMerchant_select_page.jsp");
+							.getRequestDispatcher("back-end/merchant/portal.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -497,7 +511,7 @@ public class MerchantServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("back-end/merchant/backEndMerchant_select_page.jsp");
+							.getRequestDispatcher("back-end/merchant/portal.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -512,14 +526,14 @@ public class MerchantServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("back-end/merchant/backEndMerchant_select_page.jsp");
+							.getRequestDispatcher("back-end/merchant/portal.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("List<MerchantVO>", list); // 資料庫取出的List<MerchantVO>物件,存入req
-				String url = "back-end/merchant/listOneStatusOfMerchant.jsp";
+				String url = "back-end/merchant/portal.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneStatusOfMerchant.jsp
 				successView.forward(req, res);
 
@@ -527,7 +541,7 @@ public class MerchantServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("back-end/merchant/backEndMerchant_select_page.jsp");
+						.getRequestDispatcher("back-end/merchant/portal.jsp");
 				failureView.forward(req, res);
 			}
 		}

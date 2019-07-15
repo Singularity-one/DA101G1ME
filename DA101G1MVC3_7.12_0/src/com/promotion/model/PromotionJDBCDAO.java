@@ -37,6 +37,11 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 			"SELECT promotion_no,merchant_no,product_no,promotion_name,to_char(promotion_start,'yyyy-mm-dd') promotion_start,to_char(promotion_end,'yyyy-mm-dd') promotion_end,promotion_pr,promotion_ps,promotion_status,promotion_img FROM promotion where promotion_status = ?";
 					
 		
+		//用商品編號找出廣告VO(廣告折扣用)
+		private static final String GET_ONE_PRODUCTNO = 
+			"SELECT promotion_no,merchant_no,product_no,promotion_name,to_char(promotion_start,'yyyy-mm-dd') promotion_start,to_char(promotion_end,'yyyy-mm-dd') promotion_end,promotion_pr,promotion_ps,promotion_status,promotion_img FROM promotion where product_no = ?";
+			
+		
 		
 		@Override
 		public void insert(PromotionVO promotionVO) {
@@ -513,6 +518,78 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 			return list;
 		}
 		
+		
+		
+		//用商品編號找出廣告VO(廣告折扣用)
+		@Override
+		public PromotionVO findByProductNo(String product_no) {
+			PromotionVO promotionVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ONE_PRODUCTNO);
+
+				pstmt.setString(1, product_no);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					// empVo 也稱為 Domain objects
+
+					promotionVO = new PromotionVO();
+					promotionVO.setPromotion_no(rs.getString("promotion_no"));
+					promotionVO.setMerchant_no(rs.getString("merchant_no"));
+					promotionVO.setProduct_no(rs.getString("product_no"));
+					promotionVO.setPromotion_name(rs.getString("promotion_name"));
+					promotionVO.setPromotion_start(rs.getDate("promotion_start"));
+					promotionVO.setPromotion_end(rs.getDate("promotion_end"));
+					promotionVO.setPromotion_pr(rs.getDouble("promotion_pr"));
+					promotionVO.setPromotion_ps(rs.getString("promotion_ps"));
+					promotionVO.setPromotion_status(rs.getString("promotion_status"));
+					promotionVO.setPromotion_img(rs.getBytes("promotion_img"));
+					
+				}
+
+				// Handle any driver errors
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+				// Handle any SQL errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return promotionVO;
+		}
+		
 		public static void main(String[] args) {
 			
 			PromotionJDBCDAO dao = new PromotionJDBCDAO();
@@ -565,20 +642,20 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 //			System.out.println("---------------------");
 			
 			// 查詢
-			List<PromotionVO> list = dao.getAll();
-			for (PromotionVO aPromotion : list) {
-				System.out.print(aPromotion.getPromotion_no() + ",");
-				System.out.print(aPromotion.getMerchant_no() + ",");
-				System.out.print(aPromotion.getProduct_no() + ",");
-				System.out.print(aPromotion.getPromotion_name() + ",");
-				System.out.print(aPromotion.getPromotion_start() + ",");
-				System.out.print(aPromotion.getPromotion_end() + ",");
-				System.out.print(aPromotion.getPromotion_pr() + ",");
-				System.out.print(aPromotion.getPromotion_ps() + ",");
-				System.out.print(aPromotion.getPromotion_status() + ",");
-				System.out.print(aPromotion.getPromotion_img() + ",");
-				System.out.println();
-			}
+//			List<PromotionVO> list = dao.getAll();
+//			for (PromotionVO aPromotion : list) {
+//				System.out.print(aPromotion.getPromotion_no() + ",");
+//				System.out.print(aPromotion.getMerchant_no() + ",");
+//				System.out.print(aPromotion.getProduct_no() + ",");
+//				System.out.print(aPromotion.getPromotion_name() + ",");
+//				System.out.print(aPromotion.getPromotion_start() + ",");
+//				System.out.print(aPromotion.getPromotion_end() + ",");
+//				System.out.print(aPromotion.getPromotion_pr() + ",");
+//				System.out.print(aPromotion.getPromotion_ps() + ",");
+//				System.out.print(aPromotion.getPromotion_status() + ",");
+//				System.out.print(aPromotion.getPromotion_img() + ",");
+//				System.out.println();
+//			}
 			
 			
 //			// 查詢單一廠商有關廣告
@@ -599,7 +676,7 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 				
 			// 修改單一廣告上下架狀態
 //			PromotionVO promotionVO5 = new PromotionVO();
-//			promotionVO5.setPromotion_no("PR00017");
+//			promotionVO5.setPromotion_no("PR00002");
 //			promotionVO5.setPromotion_status("B1");
 //			dao.updatePromotionStatus(promotionVO5);
 			
@@ -619,6 +696,23 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 //				System.out.print(aPromotion.getPromotion_img() + ",");
 //				System.out.println();
 //			}
+			
+			
+			//用商品編號找出廣告VO(廣告折扣用)
+//			PromotionVO promotionVO3 = dao.findByProductNo("PR00001");
+//			System.out.print(promotionVO3.getPromotion_no() + ",");
+//			System.out.print(promotionVO3.getMerchant_no() + ",");
+//			System.out.print(promotionVO3.getProduct_no() + ",");
+//			System.out.print(promotionVO3.getPromotion_name() + ",");
+//			System.out.print(promotionVO3.getPromotion_start() + ",");
+//			System.out.print(promotionVO3.getPromotion_end() + ",");
+//			System.out.print(promotionVO3.getPromotion_pr() + ",");
+//			System.out.print(promotionVO3.getPromotion_ps() + ",");
+//			System.out.print(promotionVO3.getPromotion_status() + ",");
+//			System.out.print(promotionVO3.getPromotion_img() + ",");
+//			
+//			
+//			System.out.println("---------------------");
 			
 			
 			

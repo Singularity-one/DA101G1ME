@@ -101,7 +101,7 @@ background-color:black;
 <ul class="list-group list-group-flush ">
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/product/portal.jsp'>商品</a></li>
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/merchant/portal.jsp'>查詢</a></li>
-  <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/merchant/listAllMerchant.jsp'>全部</a></li>
+  <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/merchant/Merchant.jsp'>全部</a></li>
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/promotion/portal.jsp'>廣告</a></li>
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/Index/portal.jsp'>回首頁</a></li>
 </ul>
@@ -177,8 +177,24 @@ background-color:black;
 
 
 </div>
+<%if (request.getAttribute("merchantVO")!=null){%>
+       <jsp:include page="listOneMerchant.jsp" flush="true"/>
+				<%-- <c:import url="<%=request.getContextPath()%>/front-end/promotion/OnlyOnePromotionOfMerchant.jsp"> --%>
+				<%-- </c:import> --%>
+				<%-- //動態不行用<%=request.getContextPath()%> --%>
+<%} %>
+
+<%if (request.getAttribute("List<MerchantVO>")!=null){%>
+       <jsp:include page="listOneStatusOfMerchant.jsp" flush="true"/>
+				<%-- <c:import url="<%=request.getContextPath()%>/front-end/promotion/OnlyOnePromotionOfMerchant.jsp"> --%>
+				<%-- </c:import> --%>
+				<%-- //動態不行用<%=request.getContextPath()%> --%>
+<%} %>
 </div>
 </div>
+
+
+
 
 
 

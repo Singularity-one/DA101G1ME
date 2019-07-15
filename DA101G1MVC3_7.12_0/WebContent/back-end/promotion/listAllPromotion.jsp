@@ -14,115 +14,15 @@
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <style>
   table {
-	width: 800px;
-	background-color: white;
+	width: 1000px;
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
   table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
-
-<style>
-
-.portal{
-display:flex;
-justify-content:center;
-}
-
-.admin{
-width: 1200px;
-height:80px;
-margin:0;
-padding:0;
-background-color:#fcfcfc;
-background-size: cover;
-
-}
-#logo{
-margin:20px;
-height:150px;
-width:150px;
-}
-.content{
-display:flex;
-width:100%;
-margin:0;
-padding:0;
-background-color:	#f0f0f0;
-background-size:cover;
-margin-bottom: 50px;
-}
-.status{
-
-flex-direction: colum;
-text-align: center;
-margin-top:30px;
-margin-right:15px;
-margin-left: 15px;
-margin-bottom: 30px;
-background-color:#fff;
-}
-
-.list-group{
-width: 250px;
-
-}
-hr {
-    margin-top:7px;
-    *margin: 0;
-    border: 0;
-    color: #fff;
-    background-color: #fff; 
-    height: 3px;
-    width:50%;
-}
-.number{
-font-size: 42pt;
-color: #fff;
-}
-.administrator{
-display:flex;
-justify-content:flex-end;
-margin-right:100px;
-line-height: 80px;
-}
-
-.footer{
-width:100%;
-height:100px;
-background-color:black;
-}
-</style>
-
-<style>
-  table {
-	width: 600px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
   }
   th, td {
     padding: 5px;
@@ -136,9 +36,6 @@ background-color:black;
 
 <body bgcolor='white'>
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-
-
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -149,41 +46,30 @@ background-color:black;
 	</ul>
 </c:if>
 
-<div class="portal">
-<div class="logo">
-<img src="icon.jpeg" id="logo">
+<div class="content container" style=" display: flex;flex-direction: column; ">
 
-<ul class="list-group list-group-flush ">
-  <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/promotion/portal.jsp'>查詢</a></li>
-  <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/Index/portal.jsp'>回首頁</a></li>
-</ul>
-</div>
-
-
-<div class="content container" >
-
-<table>
-	<tr>
-		<th>廣告編號</th>
+<table style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
+	<tr style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
+		<th style=" width: 100px;">廣告編號</th>
 		<th>廠商編號</th>
-		<th>商品編號</th>
+		<th style=" width: 100px;">商品編號</th>
 		<th>廣告名稱</th>
-		<th>廣告開始日期</th>
-		<th>廣告結束日期</th>
-		<th>商品促銷折扣</th>
+		<th>開始日期</th>
+		<th>結束日期</th>
+		<th>促銷折扣</th>
 		<th>廣告說明</th>
 		<th>廣告狀態</th>
 		<th>廣告圖檔</th>
-		<th></th>
-		<th></th>
+		<th>上架</th>
+		<th>下架</th>
 	</tr>
 	<%@ include file="page/page1.file" %> 
 	<c:forEach var="promotionVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
-		<tr>
-			<td>${promotionVO.promotion_no}</td>
+		<tr ${(promotionVO.promotion_no==param.promotion_no) ? 'bgcolor=#E0FFFF':''}>
+			<td style=" width: 100px;">${promotionVO.promotion_no}</td>
 			<td>${promotionVO.merchant_no}</td>
-			<td>${promotionVO.product_no}</td>
+			<td style=" width: 100px;">${promotionVO.product_no}</td>
 			<td>${promotionVO.promotion_name}</td>
 			<td>${promotionVO.promotion_start}</td>
 			<td>${promotionVO.promotion_end}</td>
@@ -207,14 +93,18 @@ background-color:black;
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/PromotionServlet1" style="margin-bottom: 0px;">
 			     <input type="submit" value="上架">
 			     <input type="hidden" name="promotion_no"  value="${promotionVO.promotion_no}">
-			      <input type="hidden" name="promotion_status"  value="B2">
+			     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
+			     <input type="hidden" name="whichPage"	value="<%=whichPage%>">
+			     <input type="hidden" name="promotion_status"  value="B2">      
 			     <input type="hidden" name="action"	value="getOnePromotionStatus_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/PromotionServlet1" style="margin-bottom: 0px;">
 			     <input type="submit" value="下架">
 			     <input type="hidden" name="promotion_no"  value="${promotionVO.promotion_no}">
-			      <input type="hidden" name="promotion_status"  value="B3">
+			     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
+			     <input type="hidden" name="whichPage"	value="<%=whichPage%>">
+			     <input type="hidden" name="promotion_status"  value="B3">
 			     <input type="hidden" name="action"	value="getOnePromotionStatus_Update"></FORM>
 			</td>
 			

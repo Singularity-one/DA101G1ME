@@ -34,6 +34,7 @@ public class Order_detailServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		
+		//後台單一搜尋一個訂單
 		if ("getOne_For_Order_detail".equals(action)) { // 來自order_detail_select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -50,7 +51,7 @@ public class Order_detailServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("back-end/order_detail/order_detail_select_page.jsp");
+							.getRequestDispatcher("back-end/order_detail/portal.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -64,7 +65,7 @@ public class Order_detailServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("back-end/order_detail/order_detail_select_page.jsp");
+							.getRequestDispatcher("back-end/order_detail/portal.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -80,14 +81,14 @@ public class Order_detailServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("back-end/order_detail/order_detail_select_page.jsp");
+							.getRequestDispatcher("back-end/order_detail/portal.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("order_detailVO", order_detailVO); // 資料庫取出的order_detailVO物件,存入req
-				String url = "back-end/order_detail/listOneOrder_detail.jsp";
+				String url = "back-end/order_detail/portal.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneOrder_detail.jsp
 				successView.forward(req, res);
 
@@ -95,7 +96,7 @@ public class Order_detailServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("back-end/order_detail/order_detail_select_page.jsp");
+						.getRequestDispatcher("back-end/order_detail/portal.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -426,6 +427,8 @@ public class Order_detailServlet extends HttpServlet {
 			}
 		}
 		
+		
+		
 		// 單一廠商查詢全部訂單單一狀態並Order_detailVO傳回list
 		if ("get_OneStatus_Order_detail".equals(action)) { // 來自OnlyOneStatusOrderDetail.jsp的請求
 
@@ -521,6 +524,7 @@ public class Order_detailServlet extends HttpServlet {
 		}
 		
 		
+		
 		//查詢一個月單一廠商有關的訂單
 		if ("getOneMonth_One_Merchant".equals(action)) { // 來自OnlyOneStatusOrderDetail.jsp的請求
 			
@@ -606,7 +610,7 @@ public class Order_detailServlet extends HttpServlet {
 					session.setAttribute("month", str);
 					session.setAttribute("merchant_no", str2);
 					req.setAttribute("List<Order_detailVO>", list); // 資料庫取出的order_detailVO物件,存入req
-					String url = "back-end/order_detail/OneMonthOfOrder_detailByMerchant.jsp";
+					String url = "back-end/order_detail/portal.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneOrder_detail.jsp
 					successView.forward(req, res);
 

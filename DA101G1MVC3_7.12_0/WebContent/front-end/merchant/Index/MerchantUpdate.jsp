@@ -171,6 +171,7 @@ pageContext.setAttribute("merchantVO", merchantVO);
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/MerchantServlet1" style="margin-bottom: 0px;">
 			     <input type="submit" value="н╫зя">
 			     <input type="hidden" name="merchant_no"  value="${merchantVO.merchant_no}">
+			     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 				
 				<div id="box12">

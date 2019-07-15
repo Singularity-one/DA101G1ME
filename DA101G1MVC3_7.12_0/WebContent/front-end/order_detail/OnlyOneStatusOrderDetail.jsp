@@ -128,21 +128,19 @@
    	    }
     </style>
     
-    <style>
-  		table {
-			width: 800px;
-		 	background-color: white;
-			margin-top: 5px;
-			margin-bottom: 5px;
-  		}
-  		table, th, td {
-    		border: 1px solid #CCCCFF;
-  		}
-  		th, td {
-    		padding: 5px;
-    		text-align: center;
-  		}
-	</style>
+<style>
+  table {
+	width: 918px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  }
+  table, th, td {
+  }
+  th, td {
+    padding: 5px;
+    text-align: center;
+  }
+</style>
     
     
 </head>
@@ -162,10 +160,18 @@
 	</div>
 	
 		<div class="row justify-content-center content">
-		<div class="col-2">
-<div>
-<table>
-	<tr>
+			<div class="col-2" style="top:375px;left:350px;position:absolute;">
+				<div class="list-group list-group-flush">
+					<div class="list-group-item" style="font-family:monospace;font-size: 18px;"><b>選單</b></div>
+					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantUpdate.jsp" class="list-group-item">廠商資料</a>
+					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantOrder.jsp" class="list-group-item">訂單</a>
+					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantLogin.jsp" class="list-group-item">回廠商頁面</a>
+					
+				</div>			
+			</div>
+<div style="top:375px;left:800px;position:absolute;">
+<table style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
+	<tr style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
 		<th>訂單編號</th>
 		<th>會員編號</th>
 		<th>廠商編號</th>
@@ -176,6 +182,7 @@
 		<th>收件人姓名</th>
 		<th>收件人電話</th>
 		<th></th>
+        <th></th>
 	</tr>
 	<%@ include file="page/page1.file" %> 
 	<c:forEach var="order_detailVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -208,9 +215,18 @@
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_listServlet1" style="margin-bottom: 0px;">
 			     <input type="submit" value="明細">
 			     <input type="hidden" name="order_no"  value="${order_detailVO.order_no}">
-			     <input type="hidden" name="action"	value="getOne_For_UpdateFromOrder_detail"></FORM>
-				
+			     <input type="hidden" name="action"	value="getOne_For_UpdateFromOrder_detail"></FORM>		
 			</td>
+			<td>
+			<c:if test="${order_status == 'O1'}">
+                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" style="margin-bottom: 0px;">
+			     <input type="submit" value="出貨">
+			     <input type="hidden" name="order_no"  value="${order_detailVO.order_no}">
+			     <input type="hidden" name="order_status"  value="O2">
+			     <input type="hidden" name="action"	value="getOneOrder_detailStatus_Update"></FORM>
+			</c:if>
+			</td>
+			
 		</tr>
 	</c:forEach>
 </table>

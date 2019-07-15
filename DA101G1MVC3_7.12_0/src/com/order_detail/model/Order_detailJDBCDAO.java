@@ -647,7 +647,7 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 //		System.out.println("修改成功");
 
 //		 刪除
-//		dao.delete("6");
+//		dao.delete("OR00011");
 //		System.out.println("刪除成功");
 		
 //		 查詢(get one)
@@ -695,7 +695,7 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 		// 修改單一訂單出貨狀態
 //		Order_detailVO order_detailVO4 = new Order_detailVO();
 //		order_detailVO4.setOrder_status("O1");
-//		order_detailVO4.setOrder_no("OR00005");
+//		order_detailVO4.setOrder_no("OR00001");
 //		dao.updateOrder_detailStatus(order_detailVO4);
 		
 		
@@ -733,8 +733,11 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 		
 		
 		// 管理員查詢一個月單一廠商已出貨全部訂單
-		Order_detailVO order_detailVO3 = dao.getOneMonthOfMerchant("06","ME00001");
-		System.out.print(order_detailVO3.getOrder_amosum());
+//		Order_detailVO order_detailVO3 = dao.getOneMonthOfMerchant("06","ME00001");
+//		System.out.print(order_detailVO3.getOrder_amosum());
+		
+		
+
 
 		
 		

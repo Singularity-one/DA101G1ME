@@ -21,4 +21,9 @@ public interface PromotionDAO_interface {
  	
  	// 查詢單一廣告狀態用狀態並PromotionVO傳回list
   	public List<PromotionVO> getOneStatusOfAll(String promotion_status);
+  	
+  	//用商品編號找出廣告VO(廣告折扣用)
+  	public PromotionVO findByProductNo(String product_no);
+  	
+  	
 }
