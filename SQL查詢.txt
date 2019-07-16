@@ -60,3 +60,13 @@ WHERE to_char(order_time,'yyyy-mm-dd') > '2019-07-07' AND  to_char(order_time,'y
 AND order_no IN
 (SELECT order_no FROM order_list WHERE product_no IN
 (SELECT product_no FROM product WHERE merchant_no='ME00001' ));
+
+
+訂單狀態
+訂單總金額
+訂單時間
+x訂單編號(點出訂單明細表格)
+
+廣告促銷狀態(點出廣告表格)
+x商品編號(點出商品表格)
+x廠商標號(點出廠商表格)
