@@ -63,7 +63,7 @@ public class Order_detailJNDIDAO implements Order_detailDAO_interface {
 			
 			//前台廠商輸入時間找當日訂單
 			private static final String GET_ONE_ORDER_DETAIL_OF_DAY =
-				"SELECT order_no,mem_no,merchant_no,order_status,order_amosum,order_time,order_cusadr,order_cusname,order_cusphone FROM order_detail WHERE to_char(order_time,'yyyy-mm-dd') > ? AND  to_char(order_time,'yyyy-mm-dd') < ? AND order_no IN (SELECT order_no FROM order_list WHERE product_no IN (SELECT product_no FROM product WHERE merchant_no=? )) order by order_no";
+				"SELECT order_no,mem_no,merchant_no,order_status,order_amosum,order_time,order_cusadr,order_cusname,order_cusphone FROM order_detail WHERE to_char(order_time,'yyyy-mm-dd') >= ? AND  to_char(order_time,'yyyy-mm-dd') <= ? AND order_no IN (SELECT order_no FROM order_list WHERE product_no IN (SELECT product_no FROM product WHERE merchant_no=? )) order by order_no";
 				
 			
 			

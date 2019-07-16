@@ -3,7 +3,10 @@ package com.order_detail.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -510,7 +513,9 @@ public class Order_detailServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				HttpSession session = req.getSession();
 				req.setAttribute("List<Order_detailVO>", list); // 資料庫取出的order_detailVO物件,存入req
+				session.setAttribute("get_OneStatus_Order_detail", list);
 				String url = "front-end/order_detail/OnlyOneStatusOrderDetail.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneOrder_detail.jsp
 				successView.forward(req, res);
@@ -659,7 +664,23 @@ public class Order_detailServlet extends HttpServlet {
 						
 			SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
 			String order_time_end1 = bartDateFormat2.format(order_time_end);
-					
+			
+			
+			
+//			Calendar calendar = Calendar.getInstance();
+//
+//			if(order_time_start.equals(order_time_end)) { 
+//				calendar.setTime(order_time_end);
+//				calendar.add(Calendar.DATE,1);//天數加1
+//			}
+//			
+//			SimpleDateFormat bartDateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
+//			String order_time_end1 = bartDateFormat3.format(calendar.getTime());
+			
+			
+			
+			
+			
 			String str = req.getParameter("merchant_no");
 			if (str == null || (str.trim()).length() == 0) {
 				errorMsgs.add("請輸入廠商編號");
@@ -703,7 +724,9 @@ public class Order_detailServlet extends HttpServlet {
 			}
 						
 			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+			HttpSession session = req.getSession();
 			req.setAttribute("List<Order_detailVO>", list); // 資料庫取出的order_detailVO物件,存入req
+			session.setAttribute("getOrder_detail_Day", list);
 			String url = "front-end/order_detail/order_detail.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneOrder_detail.jsp
 			successView.forward(req, res);
@@ -721,5 +744,6 @@ public class Order_detailServlet extends HttpServlet {
 		
 		
 	}
+	
 
 }

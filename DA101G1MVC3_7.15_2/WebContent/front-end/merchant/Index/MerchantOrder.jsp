@@ -151,13 +151,14 @@
 					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantLogin.jsp" class="list-group-item">回廠商頁面</a>
 				</div>
 			</div>
-				
+
 			<div class="col-5 right"">
 				<jsp:include page="../../order_detail/OnlyOneOrderDetailOfMerchant.jsp" flush="true"/>
 				<%-- <c:import url="<%=request.getContextPath()%>/front-end/promotion/OnlyOnePromotionOfMerchant.jsp"> --%>
 				<%-- </c:import> --%>
 				<%-- //動態不行用<%=request.getContextPath()%> --%>
-			</div>					
+			</div>
+				
 	</div>
 </div>
 

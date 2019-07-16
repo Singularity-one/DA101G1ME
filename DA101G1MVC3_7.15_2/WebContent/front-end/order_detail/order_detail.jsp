@@ -142,7 +142,7 @@
         <input type="hidden" name="merchant_no" value="<%=session.getAttribute("merchant_no")%>">
         <input type="submit" value="送出"> </FORM>
         
-        <%if (request.getAttribute("List<Order_detailVO>")!=null){%>
+        <%if (session.getAttribute("getOrder_detail_Day")!=null){%>
 		<div style="left: 100px;top: 100px;">
 			<jsp:include page="order_detailOfDay.jsp" flush="true"/>
 			<%-- <c:import url="<%=request.getContextPath()%>/front-end/promotion/OnlyOnePromotionOfMerchant.jsp"> --%>

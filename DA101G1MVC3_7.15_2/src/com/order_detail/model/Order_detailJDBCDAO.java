@@ -51,7 +51,7 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 	
 	//前台廠商輸入時間找當日訂單
 	private static final String GET_ONE_ORDER_DETAIL_OF_DAY =
-		"SELECT order_no,mem_no,merchant_no,order_status,order_amosum,order_time,order_cusadr,order_cusname,order_cusphone FROM order_detail WHERE to_char(order_time,'yyyy-mm-dd') > ? AND  to_char(order_time,'yyyy-mm-dd') < ? AND order_no IN (SELECT order_no FROM order_list WHERE product_no IN (SELECT product_no FROM product WHERE merchant_no=? )) order by order_no";
+		"SELECT order_no,mem_no,merchant_no,order_status,order_amosum,order_time,order_cusadr,order_cusname,order_cusphone FROM order_detail WHERE to_char(order_time,'yyyy-mm-dd') >= ? AND  to_char(order_time,'yyyy-mm-dd') <= ? AND order_no IN (SELECT order_no FROM order_list WHERE product_no IN (SELECT product_no FROM product WHERE merchant_no=? )) order by order_no";
 		
 	
 	
@@ -770,10 +770,10 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 //		}
 		
 		// 修改單一訂單出貨狀態
-//		Order_detailVO order_detailVO4 = new Order_detailVO();
-//		order_detailVO4.setOrder_status("O1");
-//		order_detailVO4.setOrder_no("OR00001");
-//		dao.updateOrder_detailStatus(order_detailVO4);
+		Order_detailVO order_detailVO4 = new Order_detailVO();
+		order_detailVO4.setOrder_status("O1");
+		order_detailVO4.setOrder_no("OR00001");
+		dao.updateOrder_detailStatus(order_detailVO4);
 		
 		
 		// 單一廠商查詢全部訂單單一狀態並Order_detailVO傳回list
@@ -814,20 +814,20 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 //		System.out.print(order_detailVO3.getOrder_amosum());
 		
 		
-		// 查詢單一廠商有關訂單
-		List<Order_detailVO> list = dao.getAllOneDayOfMerchantNo("2019-07-08","2019-07-10","ME00001");
-		for (Order_detailVO odlist : list) {
-			System.out.print(odlist.getOrder_no() + ",");
-			System.out.print(odlist.getMem_no() + ",");
-			System.out.print(odlist.getMerchant_no() + ",");
-			System.out.print(odlist.getOrder_status() + ",");
-			System.out.print(odlist.getOrder_amosum() + ",");
-			System.out.print(odlist.getOrder_time() + ",");
-			System.out.print(odlist.getOrder_cusadr() + ",");
-			System.out.print(odlist.getOrder_cusname() + ",");
-			System.out.print(odlist.getOrder_cusphone());
-			System.out.println();
-		}
+		// 用日期查詢單一廠商有關訂單
+//		List<Order_detailVO> list = dao.getAllOneDayOfMerchantNo("2019-07-08","2019-07-10","ME00001");
+//		for (Order_detailVO odlist : list) {
+//			System.out.print(odlist.getOrder_no() + ",");
+//			System.out.print(odlist.getMem_no() + ",");
+//			System.out.print(odlist.getMerchant_no() + ",");
+//			System.out.print(odlist.getOrder_status() + ",");
+//			System.out.print(odlist.getOrder_amosum() + ",");
+//			System.out.print(odlist.getOrder_time() + ",");
+//			System.out.print(odlist.getOrder_cusadr() + ",");
+//			System.out.print(odlist.getOrder_cusname() + ",");
+//			System.out.print(odlist.getOrder_cusphone());
+//			System.out.println();
+//		}
 		
 		
 

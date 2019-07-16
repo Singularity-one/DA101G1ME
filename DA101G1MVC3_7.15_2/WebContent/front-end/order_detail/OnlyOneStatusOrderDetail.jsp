@@ -6,7 +6,7 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 <%=session.getAttribute("merchant_no")%>
 <%
-		List<Order_detailVO> list = (List<Order_detailVO>) request.getAttribute("List<Order_detailVO>"); //EmpServlet.java(Concroller), 存入req的merchantVO物件
+		List<Order_detailVO> list = (List<Order_detailVO>) session.getAttribute("get_OneStatus_Order_detail"); //EmpServlet.java(Concroller), 存入req的merchantVO物件
 		pageContext.setAttribute("list",list);
 %>
 <!DOCTYPE html>
@@ -144,10 +144,7 @@
     
     
 </head>
-  <body>
-  <br>本網頁的路徑:<br><b>
-<font color=blue>request.getServletPath():</font> <%=request.getServletPath()%><br>
-<font color=blue>request.getRequestURI(): </font> <%=request.getRequestURI()%> </b>
+<body>
   
   
 <div class="outer">
@@ -175,6 +172,22 @@
 				</div>			
 			</div>
 <div style="top:375px;left:800px;position:absolute;">
+
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" >
+       <b>選擇訂單狀態:</b>
+			<select name="order_status">
+　				<option value="O1">撿貨</option>
+　				<option value="O2">出貨</option>
+　				<option value="O3">取消訂單</option>
+				<option value="O4">退貨</option>
+			</select>
+       <input type="hidden" name="action" value="get_OneStatus_Order_detail">
+       <input type="hidden" name="merchant_no" value="<%=session.getAttribute("merchant_no")%>">
+       <input type="submit" value="送出">
+</FORM>
+
+
+
 <table style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
 	<tr style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
 		<th>訂單編號</th>
@@ -189,7 +202,7 @@
 		<th></th>
         <th></th>
 	</tr>
-	<%@ include file="page/page1.file" %> 
+	<%@ include file="page/page1.file" %>
 	<c:forEach var="order_detailVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
@@ -236,7 +249,7 @@
 	</c:forEach>
 </table>
 <%@ include file="page/page2.file" %>
-</div>
+
 
 </body>
 </html>

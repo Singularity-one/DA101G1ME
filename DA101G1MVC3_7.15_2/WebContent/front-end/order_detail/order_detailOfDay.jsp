@@ -6,7 +6,7 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 <%=session.getAttribute("merchant_no")%>
 <%
-		List<Order_detailVO> list = (List<Order_detailVO>) request.getAttribute("List<Order_detailVO>"); //EmpServlet.java(Concroller), 存入req的merchantVO物件
+		List<Order_detailVO> list = (List<Order_detailVO>) session.getAttribute("getOrder_detail_Day"); //EmpServlet.java(Concroller), 存入req的merchantVO物件
 		pageContext.setAttribute("list",list);
 %>
 <!DOCTYPE html>
@@ -50,10 +50,6 @@
 </head>
 <body bgcolor='white'>
 
-<br>本網頁的路徑:<br><b>
-<font color=blue>request.getServletPath():</font> <%=request.getServletPath()%><br>
-<font color=blue>request.getRequestURI(): </font> <%=request.getRequestURI()%> </b>
-
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -78,7 +74,7 @@
 		<th>收件人電話</th>
 		<th></th>
 	</tr>
-<%@ include file="page/page1.file" %> 
+	<%@ include file="page/page1.file" %>
 	<c:forEach var="order_detailVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
@@ -109,13 +105,13 @@
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_listServlet1" style="margin-bottom: 0px;">
 			     <input type="submit" value="明細">
 			     <input type="hidden" name="order_no"  value="${order_detailVO.order_no}">
-			     <input type="hidden" name="action"	value="getOne_For_UpdateFromOrder_detail"></FORM>
-				
+			     <input type="hidden" name="action"	value="getOne_For_UpdateFromOrder_detail"></FORM>				
 			</td>
 		</tr>
 	</c:forEach>
 </table>
 <%@ include file="page/page2.file" %>
+
 
 </body>
 </html>
