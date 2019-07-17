@@ -70,3 +70,13 @@ x訂單編號(點出訂單明細表格)
 廣告促銷狀態(點出廣告表格)
 x商品編號(點出商品表格)
 x廠商標號(點出廠商表格)
+
+會員編號
+廠商編號
+訂單狀態
+訂單總金額
+訂單時間
+select * from order_detail  where mem_no like '%MB00001%'  and merchant_no like '%ME00001%'  and order_amosum<=600  and order_amosum>=0  and order_status like '%O2%'  and to_char(order_time,'yyyy-mm-dd')<='2019-07-10'  and to_char(order_time,'yyyy-mm-dd')>='2019-07-07' order by order_no
+
+
+
