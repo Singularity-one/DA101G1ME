@@ -7,11 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+
+import com.order_detail.controller.jdbcUtil_CompositeQuery_Order_detail;
+
 
 public class Order_detailDAO implements Order_detailDAO_interface {
 
@@ -653,6 +658,74 @@ public class Order_detailDAO implements Order_detailDAO_interface {
 			}
 			return list;
 		};
+		
+		
+		
+		//萬用複合查詢(傳入參數型態Map)(回傳 List)
+		@Override
+		public List<Order_detailVO> getAll(Map<String, String[]> map) {
+			List<Order_detailVO> list = new ArrayList<Order_detailVO>();
+			Order_detailVO order_detailVO = null;
+		
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			System.out.println("有進來DAO");
+		
+			try {
+				
+				con = ds.getConnection();
+				String finalSQL = "select * from order_detail "
+			          + jdbcUtil_CompositeQuery_Order_detail.get_WhereCondition(map)
+			          + "order by order_no";
+				pstmt = con.prepareStatement(finalSQL);
+				System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+				rs = pstmt.executeQuery();
+		
+				while (rs.next()) {
+					order_detailVO = new Order_detailVO();
+					order_detailVO.setOrder_no(rs.getString("order_no"));
+					order_detailVO.setMem_no(rs.getString("mem_no"));
+					order_detailVO.setMerchant_no(rs.getString("merchant_no"));
+					order_detailVO.setOrder_status(rs.getString("order_status"));
+					order_detailVO.setOrder_amosum(rs.getInt("order_amosum"));
+					order_detailVO.setOrder_time(rs.getTimestamp("order_time"));
+					order_detailVO.setOrder_cusadr(rs.getString("order_cusadr"));
+					order_detailVO.setOrder_cusname(rs.getString("order_cusname"));
+					order_detailVO.setOrder_cusphone(rs.getString("order_cusphone"));
+					list.add(order_detailVO);
+				}
+		
+				// Handle any SQL errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
 		
 				
 				

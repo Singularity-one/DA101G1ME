@@ -2,6 +2,7 @@ package com.order_detail.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import com.promotion.model.PromotionVO;
 
@@ -10,7 +11,7 @@ public class Order_detailService {
 	private Order_detailDAO_interface dao;
 
 	public Order_detailService() {
-		dao = new Order_detailJDBCDAO();
+		dao = new Order_detailDAO();
 	}
 
 	public Order_detailVO addOrder_detail(String mem_no, String merchant_no, String order_status, Integer order_amosum,
@@ -104,6 +105,11 @@ public class Order_detailService {
 	//前台廠商輸入時間區間找當日訂單
 	public List<Order_detailVO> getAllOneDayOfMerchantNo(String order_time_start,String order_time_end,String merchant_no) {
 		return dao.getAllOneDayOfMerchantNo(order_time_start,order_time_end,merchant_no);
+	}
+	
+	
+	public List<Order_detailVO> getAll(Map<String, String[]> map) {
+		return dao.getAll(map);
 	}
 
 	

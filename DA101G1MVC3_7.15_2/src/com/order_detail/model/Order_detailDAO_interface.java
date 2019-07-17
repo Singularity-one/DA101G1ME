@@ -2,6 +2,7 @@ package com.order_detail.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import com.promotion.model.PromotionVO;
 
@@ -11,8 +12,9 @@ public interface Order_detailDAO_interface {
     public void delete(String order_no);
     public Order_detailVO findByPrimaryKey(String order_no);
     public List<Order_detailVO> getAll();
-  //萬用複合查詢(傳入參數型態Map)(回傳 List)
-  //public List<Order_detailVO> getAll(Map<String, String[]> map); 
+    
+    //萬用複合查詢(傳入參數型態Map)(回傳 List)
+    public List<Order_detailVO> getAll(Map<String, String[]> map); 
     
     
  // 查詢單一廠商有關訂單

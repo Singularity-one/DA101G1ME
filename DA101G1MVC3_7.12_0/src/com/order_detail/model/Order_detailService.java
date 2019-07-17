@@ -101,6 +101,12 @@ public class Order_detailService {
 	}
 	
 	
+	//前台廠商輸入時間區間找當日訂單
+	public List<Order_detailVO> getAllOneDayOfMerchantNo(String order_time_start,String order_time_end,String merchant_no) {
+		return dao.getAllOneDayOfMerchantNo(order_time_start,order_time_end,merchant_no);
+	}
+	
+	
 
 	
 }

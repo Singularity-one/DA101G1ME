@@ -48,6 +48,9 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 	private static final String GET_ONE_MONTH_MANEY = 
 		"SELECT SUM(order_amosum) FROM order_detail WHERE  (order_status='O2' AND to_char(order_time,'mm')= ? )  AND order_no IN (SELECT order_no FROM order_list WHERE product_no IN (SELECT product_no FROM product WHERE merchant_no=? )) order by order_no";
 	
+	//前台廠商輸入時間找當日訂單
+	private static final String GET_ONE_ORDER_DETAIL_OF_DAY =
+		"SELECT order_no,mem_no,merchant_no,order_status,order_amosum,order_time,order_cusadr,order_cusname,order_cusphone FROM order_detail WHERE to_char(order_time,'yyyy-mm-dd') > ? AND  to_char(order_time,'yyyy-mm-dd') < ? AND order_no IN (SELECT order_no FROM order_list WHERE product_no IN (SELECT product_no FROM product WHERE merchant_no=? )) order by order_no";
 	
 	public void insert(Order_detailVO order_detailVO) {
 		Connection con = null;
@@ -615,6 +618,78 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 		
 		
 		
+		//前台廠商輸入時間找當日訂單
+		public List<Order_detailVO> getAllOneDayOfMerchantNo(String order_time_start,String order_time_end,String merchant_no) {
+			List<Order_detailVO> list = new ArrayList<Order_detailVO>();
+			Order_detailVO order_detailVO = null;
+
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ONE_ORDER_DETAIL_OF_DAY);
+				
+				pstmt.setString(1, order_time_start);
+				pstmt.setString(2, order_time_end);
+				pstmt.setString(3, merchant_no);
+				
+				
+				
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+
+					order_detailVO = new Order_detailVO();
+					order_detailVO.setOrder_no(rs.getString("order_no"));
+					order_detailVO.setMem_no(rs.getString("mem_no"));
+					order_detailVO.setMerchant_no(rs.getString("merchant_no"));
+					order_detailVO.setOrder_status(rs.getString("order_status"));
+					order_detailVO.setOrder_amosum(rs.getInt("order_amosum"));
+					order_detailVO.setOrder_time(rs.getTimestamp("order_time"));
+					order_detailVO.setOrder_cusadr(rs.getString("order_cusadr"));
+					order_detailVO.setOrder_cusname(rs.getString("order_cusname"));
+					order_detailVO.setOrder_cusphone(rs.getString("order_cusphone"));
+					list.add(order_detailVO);
+				}
+
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. " + se.getMessage());
+
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		};
+
+		
+		
 		
 
 	public static void main(String[] args) {
@@ -735,6 +810,23 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 		// 管理員查詢一個月單一廠商已出貨全部訂單
 //		Order_detailVO order_detailVO3 = dao.getOneMonthOfMerchant("06","ME00001");
 //		System.out.print(order_detailVO3.getOrder_amosum());
+		
+		
+		
+		// 查詢單一廠商有關訂單
+		List<Order_detailVO> list = dao.getAllOneDayOfMerchantNo("2019-07-08","2019-07-10","ME00001");
+		for (Order_detailVO odlist : list) {
+			System.out.print(odlist.getOrder_no() + ",");
+			System.out.print(odlist.getMem_no() + ",");
+			System.out.print(odlist.getMerchant_no() + ",");
+			System.out.print(odlist.getOrder_status() + ",");
+			System.out.print(odlist.getOrder_amosum() + ",");
+			System.out.print(odlist.getOrder_time() + ",");
+			System.out.print(odlist.getOrder_cusadr() + ",");
+			System.out.print(odlist.getOrder_cusname() + ",");
+			System.out.print(odlist.getOrder_cusphone());
+			System.out.println();
+		}
 		
 		
 

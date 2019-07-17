@@ -30,5 +30,8 @@ public interface Order_detailDAO_interface {
  // 管理員查詢一個月單一廠商已出貨全部訂單總金額
   	public Order_detailVO getOneMonthOfMerchant(String month,String merchant_no);
   	
+  	//前台廠商輸入時間區間找當日訂單
+  	public List<Order_detailVO> getAllOneDayOfMerchantNo(String order_time_start,String order_time_end,String merchant_no);
+  	
   	
 }

@@ -6,7 +6,7 @@ public class Order_listService {
 	private Order_listDAO_interface dao;
 
 	public Order_listService() {
-		dao = new Order_listJDBCDAO();
+		dao = new Order_listDAO();
 	}
 
 	public Order_listVO addOrder_list(String order_no, String product_no, Integer order_product_pr,

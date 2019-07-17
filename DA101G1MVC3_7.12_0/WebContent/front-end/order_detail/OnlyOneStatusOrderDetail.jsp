@@ -159,17 +159,12 @@
 		</div>
 	</div>
 	
-		<div class="row justify-content-center content">
-			<div class="col-2" style="top:375px;left:350px;position:absolute;">
-				<div class="list-group list-group-flush">
-					<div class="list-group-item" style="font-family:monospace;font-size: 18px;"><b>選單</b></div>
-					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantUpdate.jsp" class="list-group-item">廠商資料</a>
-					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantOrder.jsp" class="list-group-item">訂單</a>
-					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantLogin.jsp" class="list-group-item">回廠商頁面</a>
-					
-				</div>			
-			</div>
-<div style="top:375px;left:800px;position:absolute;">
+
+
+<br>本網頁的路徑:<br><b>
+<font color=blue>request.getServletPath():</font> <%=request.getServletPath()%><br>
+ <font color=blue>request.getRequestURI(): </font> <%=request.getRequestURI()%></b><br>
+ 
 <table style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
 	<tr style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
 		<th>訂單編號</th>
@@ -232,6 +227,8 @@
 </table>
 <%@ include file="page/page2.file" %>
 </div>
+
+
 
 </body>
 </html>

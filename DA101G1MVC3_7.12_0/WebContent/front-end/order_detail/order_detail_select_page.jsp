@@ -52,7 +52,7 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>//Order_detailServlet1" >
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" >
         <b>輸入訂單編號 (如OR00001):</b>
         <input type="text" name="order_no">
         <input type="hidden" name="action" value="getOne_For_Order_detail">
@@ -63,7 +63,7 @@
   <jsp:useBean id="order_detailSvc" scope="page" class="com.order_detail.model.Order_detailService" />
    
   <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>//Order_detailServlet1" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" >
        <b>選擇訂單編號:</b>
        <select size="1" name="order_no">
          <c:forEach var="order_detailVO" items="${order_detailSvc.all}" > 
@@ -76,7 +76,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>//Order_detailServlet1" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" >
        <b>選擇產品:</b>
        <select size="1" name="order_no">
          <c:forEach var="order_detailVO" items="${order_detailSvc.all}" > 
@@ -87,6 +87,19 @@
        <input type="submit" value="送出">
      </FORM>
   </li>
+  
+ <li>
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" >
+        <b>輸入訂單編號 (如2019-07-07):</b>
+        <input type="text" name="order_time_start">
+         <input type="text" name="order_time_end">
+        <input type="hidden" name="action" value="getOrder_detail_Day">
+        <input type="hidden" name="merchant_no" value="<%=session.getAttribute("merchant_no")%>">
+        <input type="submit" value="送出">
+    </FORM>
+  </li>
+  
+  
 </ul>
 
 

@@ -147,6 +147,7 @@
 					<div class="list-group-item" style="font-family:monospace;font-size: 18px;"><b>選單</b></div>
 					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantUpdate.jsp" class="list-group-item">廠商資料</a>
 					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantOrder.jsp" class="list-group-item">訂單</a>
+					<a href="<%=request.getContextPath()%>/front-end/order_detail/order_detail.jsp" class="list-group-item">當日訂單</a>
 					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantLogin.jsp" class="list-group-item">回廠商頁面</a>
 				</div>
 			</div>
@@ -156,6 +157,14 @@
 				<%-- <c:import url="<%=request.getContextPath()%>/front-end/promotion/OnlyOnePromotionOfMerchant.jsp"> --%>
 				<%-- </c:import> --%>
 				<%-- //動態不行用<%=request.getContextPath()%> --%>
+				
+				<%if (request.getAttribute("List<Order_detailVO>_One_Merchant")!=null){%>
+       			<jsp:include page="../../order_detail/OnlyOneStatusOrderDetail.jsp" flush="true"/>
+				<%-- <c:import url="<%=request.getContextPath()%>/front-end/promotion/OnlyOnePromotionOfMerchant.jsp"> --%>
+				<%-- </c:import> --%>
+				<%-- //動態不行用<%=request.getContextPath()%> --%>
+				<%} %>
+
 			</div>					
 	</div>
 </div>

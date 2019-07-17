@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -690,6 +691,16 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 			}
 			return list;
 		};
+		
+		
+		//萬用複合查詢(傳入參數型態Map)(回傳 List)
+		public List<Order_detailVO> getAll(Map<String, String[]> map) {
+			
+			List<Order_detailVO> list = new ArrayList<Order_detailVO>();
+
+			
+			return list;
+		}
 		
 		
 		

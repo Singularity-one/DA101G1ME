@@ -8,7 +8,7 @@ public class ProductService {
 	private ProductDAO_interface dao;
 
 	public ProductService() {
-		dao = new ProductJDBCDAO();
+		dao = new ProductDAO();
 	}
 
 	public ProductVO addProduct(String merchant_no, String product_name, String product_status, Integer product_pr, String product_typ, String product_pn, String product_ps, byte[] product_img, Integer product_quan) {

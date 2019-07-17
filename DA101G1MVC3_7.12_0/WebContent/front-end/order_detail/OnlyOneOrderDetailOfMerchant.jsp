@@ -51,6 +51,10 @@
 </head>
 <body bgcolor='white'>
 
+<br>本網頁的路徑:<br><b>
+<font color=blue>request.getServletPath():</font><%=request.getServletPath()%><br>
+<font color=blue>request.getRequestURI():</font><%=request.getRequestURI()%></b><br>
+
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -126,6 +130,7 @@
 	</c:forEach>
 </table>
 <%@ include file="page/page2.file" %>
+
 
 </body>
 </html>

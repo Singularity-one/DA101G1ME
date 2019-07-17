@@ -14,6 +14,11 @@
 <html>
 <head>
 <meta charset="BIG5">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <title>所有廣告資料 - listAllPromotion.jsp</title>
 <style>
   table#table-1 {
@@ -45,6 +50,56 @@
     text-align: center;
   }
 </style>
+
+
+<style>
+
+#popBox{
+    position: absolute;
+    display:none;
+    width:300px;
+    height:200px;
+    left:40%;
+    top:20%;
+    z-index:11;
+    background:#FFFFFF; 
+}
+
+#popLayer{
+    position: absolute;
+    display:none;
+    left:0;
+    top:0;
+    z-index:10;
+    background:	#DDDDDD;
+    -moz-opacity: 0.8;
+    opacity:.80;
+    filter: alpha(opacity=80);/* 只支持IE6、7、8、9 */
+}
+
+</style>
+<script type="text/javascript">
+    function popBox(){
+        var popBox = document.getElementById('popBox');
+        var popLayer = document.getElementById('popLayer');
+
+        popLayer.style.width = document.body.scrollWidth + "px";
+        popLayer.style.height = document.body.scrollHeight + "px";
+
+        popLayer.style.display = "block";
+        popBox.style.display = "block";
+    }//end func popBox()
+
+    function closeBox(){
+        var popBox = document.getElementById('popBox');
+        var popLayer = document.getElementById('popLayer');
+
+        popLayer.style.display = "none";
+        popBox.style.display = "none";
+
+    }//end func closeBox()
+
+</script>
 
 
 
@@ -92,7 +147,7 @@
 	<c:forEach var="order_detailVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
-			<td>${order_detailVO.order_no}</td>
+ 			<td>${order_detailVO.order_no}</td>
 			<td>${order_detailVO.mem_no}</td>
 			<td>${order_detailVO.merchant_no}</td>
 			<td>
@@ -117,15 +172,15 @@
 			<td>${order_detailVO.order_cusphone}</td>
 			<td>
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_listServlet1" style="margin-bottom: 0px;">
-			     <input type="submit" value="明細">
+				 <input type="submit" value="明細">
 			     <input type="hidden" name="order_no"  value="${order_detailVO.order_no}">
-			     <input type="hidden" name="action"	value="getOne_For_UpdateFromOrder_detail"></FORM>
-				
+			     <input type="hidden" name="action"	value="getOne_For_UpdateFromOrder_detail"></FORM>     
 			</td>
 		</tr>
 	</c:forEach>
 </table>
 <%@ include file="page/page2.file" %>
 
+   	
 </body>
 </html>
