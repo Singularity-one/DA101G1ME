@@ -2,13 +2,13 @@
 
   <%if (rowsPerPage<rowNumber) {%>
     <%if(pageIndex>=rowsPerPage){%>
-        <A href="<%=request.getContextPath()%>/emp/emp.do?whichPage=1&action=listEmps_ByCompositeQuery">¶‹≤ƒ§@≠∂</A>&nbsp;
-        <A href="<%=request.getContextPath()%>/emp/emp.do?whichPage=<%=whichPage-1%>&action=listEmps_ByCompositeQuery">§W§@≠∂ </A>
+        <A href="<%=request.getContextPath()%>/emp/emp.do?whichPage=1&action=listEmps_ByCompositeQuery">Ëá≥Á¨¨‰∏ÄÈ†Å</A>&nbsp;
+        <A href="<%=request.getContextPath()%>/emp/emp.do?whichPage=<%=whichPage-1%>&action=listEmps_ByCompositeQuery">‰∏ä‰∏ÄÈ†Å </A>
     <%}%>
   
     <%if(pageIndex<pageIndexArray[pageNumber-1]){%>
-        <td><A href="<%=request.getContextPath()%>/emp/emp.do?whichPage=<%=whichPage+1%>&action=listEmps_ByCompositeQuery">§U§@≠∂ </A>&nbsp;
-        <td><A href="<%=request.getContextPath()%>/emp/emp.do?whichPage=<%=pageNumber%>&action=listEmps_ByCompositeQuery">¶‹≥Ã´·§@≠∂</A>&nbsp;
+        <td><A href="<%=request.getContextPath()%>/emp/emp.do?whichPage=<%=whichPage+1%>&action=listEmps_ByCompositeQuery">‰∏ã‰∏ÄÈ†Å </A>&nbsp;
+        <td><A href="<%=request.getContextPath()%>/emp/emp.do?whichPage=<%=pageNumber%>&action=listEmps_ByCompositeQuery">Ëá≥ÊúÄÂæå‰∏ÄÈ†Å</A>&nbsp;
     <%}%>
   <%}%>  
  
@@ -18,10 +18,10 @@
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do">   
        <select size="1" name="whichPage">
          <%for (int i=1; i<=pageNumber; i++){%>
-            <option value="<%=i%>">∏ı¶‹≤ƒ<%=i%>≠∂
+            <option value="<%=i%>">Ë∑≥Ëá≥Á¨¨<%=i%>È†Å
          <%}%> 
        </select>
-       <input type="submit" value="ΩT©w" >
+       <input type="submit" value="Á¢∫ÂÆö" >
        <input type="hidden" name="action" value="listEmps_ByCompositeQuery">  
     </FORM>
   <%}%>

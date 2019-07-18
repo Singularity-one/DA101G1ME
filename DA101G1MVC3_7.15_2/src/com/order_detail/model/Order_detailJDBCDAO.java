@@ -781,10 +781,10 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 //		}
 		
 		// 修改單一訂單出貨狀態
-		Order_detailVO order_detailVO4 = new Order_detailVO();
-		order_detailVO4.setOrder_status("O1");
-		order_detailVO4.setOrder_no("OR00001");
-		dao.updateOrder_detailStatus(order_detailVO4);
+//		Order_detailVO order_detailVO4 = new Order_detailVO();
+//		order_detailVO4.setOrder_status("O1");
+//		order_detailVO4.setOrder_no("OR00001");
+//		dao.updateOrder_detailStatus(order_detailVO4);
 		
 		
 		// 單一廠商查詢全部訂單單一狀態並Order_detailVO傳回list
