@@ -101,6 +101,7 @@ background-color:black;
 <ul class="list-group list-group-flush ">
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/order_detail/portal.jsp'>查詢</a></li>
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/order_detail/Order_detail.jsp'>訂單全部</a></li>
+  <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/order_detail/order_detail_select_pageByCompositeQuery.jsp'>複合查詢</a></li>
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/Index/portal.jsp'>回首頁</a></li>
 </ul>
 </div>

@@ -73,7 +73,8 @@
 	<c:forEach var="order_detailVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
-			<td>${order_detailVO.order_no}</td>
+<%-- 			<td>${order_detailVO.order_no}</td> --%>
+			<td><A href="<%=request.getContextPath()%>/Order_listServlet1?order_no=${order_detailVO.order_no}&action=getOne_From06">${order_detailVO.order_no}</a></td>
 			<td>${order_detailVO.mem_no}</td>
 			<td>${order_detailVO.merchant_no}</td>
 			<td>

@@ -68,7 +68,8 @@ Order_detailVO order_detailVO = (Order_detailVO) request.getAttribute("order_det
 		<th>收件人電話</th>
 	</tr>
 	<tr>
-		<td><%=order_detailVO.getOrder_no()%></td>
+<%-- 		<td><%=order_detailVO.getOrder_no()%></td> --%>
+		<td><A href="<%=request.getContextPath()%>/Order_listServlet1?order_no=${order_detailVO.order_no}&action=getOne_From06">${order_detailVO.order_no}</a></td>
 		<td><%=order_detailVO.getMem_no()%></td>
 		<td><%=order_detailVO.getMerchant_no()%></td>
 		<td><%=order_detailVO.getOrder_status()%></td>

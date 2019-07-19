@@ -8,7 +8,7 @@
 <%-- 萬用複合查詢-可由客戶端select_page.jsp隨意增減任何想查詢的欄位 --%>
 <%-- 此頁只作為複合查詢時之結果練習，可視需要再增加分頁、送出修改、刪除之功能--%>
 
-<jsp:useBean id="listOrder_detailByCompositeQuery" scope="request" type="java.util.List<Order_detailVO>" /> <!-- 於EL此行可省略 -->
+<%-- <jsp:useBean id="listOrder_detailByCompositeQuery" scope="request" type="java.util.List<Order_detailVO>" /> <!-- 於EL此行可省略 --> --%>
 
 
 
@@ -129,6 +129,7 @@ background-color:black;
 <ul class="list-group list-group-flush ">
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/order_detail/portal.jsp'>查詢</a></li>
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/order_detail/Order_detail.jsp'>訂單全部</a></li>
+  <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/order_detail/order_detail_select_pageByCompositeQuery.jsp'>複合查詢</a></li>
   <li class="list-group-item"><a href='<%=request.getContextPath()%>/back-end/Index/portal.jsp'>回首頁</a></li>
 </ul>
 </div>
@@ -159,7 +160,7 @@ background-color:black;
 		<c:forEach var="order_detailVO" items="${listOrder_detailByCompositeQuery}" >
 		<tr align='center' valign='middle' ${(order_detailVO.order_no==param.order_no) ? 'bgcolor=#CCCCFF':''}><!--將修改的那一筆加入對比色而已-->
 <%-- 			<td>${order_detailVO.order_no}</td> --%>
-			<td><A href="Order_listServlet1?order_no=${order_detailVO.order_no}&action=getOne_For_Order_list">${order_detailVO.order_no}</a></td>
+			<td><A href="<%=request.getContextPath()%>/Order_listServlet1?order_no=${order_detailVO.order_no}&action=getOne_From06">${order_detailVO.order_no}</a></td>
 			<td>${order_detailVO.mem_no}</td>
 			<td>${order_detailVO.merchant_no}</td>
 			<td>
@@ -182,58 +183,10 @@ background-color:black;
 			<td>${order_detailVO.order_cusadr}</td>
 			<td>${order_detailVO.order_cusname}</td>
 			<td>${order_detailVO.order_cusphone}</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改"> 
-			     <input type="hidden" name="order_no"      value="${order_detailVO.order_no}">
-			     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
-<%-- 			     <input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller--> --%>
-			     <input type="hidden" name="action"	    value="getOne_For_Update"></FORM>
-			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="order_no"      value="${order_detailVO.order_no}">
-			     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
-<%-- 			     <input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller--> --%>
-			     <input type="hidden" name="action"     value="delete"></FORM>
-			</td>
 		</tr>
 	</c:forEach>
 </table>
 <%-- <%@ include file="pages/page2_ByCompositeQuery.file" %> --%>
-
-<c:if test="${openModal!=null}">
-
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-				
-			<div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
-            </div>
-			
-			<div class="modal-body">
-<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <jsp:include page="listOneOrder_detail.jsp" />
-<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-			</div>
-			
-			<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-		
-		</div>
-	</div>
-</div>
-
-        <script>
-    		 $("#basicModal").modal({show: true});
-        </script>
- </c:if>
-
 
 
 

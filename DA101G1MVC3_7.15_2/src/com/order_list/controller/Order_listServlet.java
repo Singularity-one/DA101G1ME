@@ -9,9 +9,11 @@ import javax.servlet.http.*;
 
 import com.merchant.model.MerchantService;
 import com.merchant.model.MerchantVO;
+import com.order_list.model.Order_listDAO;
 import com.order_list.model.Order_listService;
 import com.order_list.model.Order_listVO;
 import com.promotion.model.PromotionVO;
+
 
 
 @WebServlet("/Order_listServlet1")
@@ -377,6 +379,37 @@ public class Order_listServlet extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("front-end/order_detail/OnlyOneOrderDetailOfMerchant.jsp");
 				failureView.forward(req, res);
+			}
+		}
+		
+		
+		
+		
+		if ("getOne_From06".equals(action)) {
+
+			try {
+				// Retrieve form parameters.
+				String order_no =req.getParameter("order_no");
+				
+				Order_listService order_listSvc = new Order_listService();
+				List<Order_listVO> list = order_listSvc.findOneOrder_listByOrder_no(order_no);
+				
+				req.setAttribute("List<Order_listVO>", list);
+				
+				//Bootstrap_modal
+				boolean openModal=true;
+				req.setAttribute("openModal",openModal );
+				
+				// 取出的empVO送給listOneEmp.jsp
+				RequestDispatcher successView = req
+						.getRequestDispatcher("back-end/order_list/listOneOrder_listByCompositeQuery.jsp");
+//						.getRequestDispatcher("back-end/order_detail/listOrder_detailByCompositeQuery.jsp");
+				successView.forward(req, res);
+				return;
+
+				// Handle any unusual exceptions
+			} catch (Exception e) {
+				throw new ServletException(e);
 			}
 		}
 		
