@@ -703,6 +703,16 @@ public class Order_detailJDBCDAO implements Order_detailDAO_interface {
 		}
 		
 		
+		//萬用複合查詢(傳入參數型態Map)(回傳 List)
+		public List<Order_detailVO> getAll(Map<String, String[]> map,String merchant_no) {
+					
+			List<Order_detailVO> list = new ArrayList<Order_detailVO>();
+
+					
+			return list;
+		}
+		
+		
 		
 
 	public static void main(String[] args) {

@@ -144,6 +144,33 @@ background-color:black;
      </FORM>
 </div>
 
+<div class="content container" style=" display: flex; ">
+ <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" >
+     	<b>輸入會員編號 (如MB00002):</b>
+        <input type="text" name="mem_no"><br>
+        
+        <b>選擇訂單狀態:</b>
+    		<select name="order_status">
+　				<option value="O1">撿貨</option>
+　				<option value="O2">已出貨</option>
+				<option value="O3">取消訂單</option>
+				<option value="O4">退貨</option>
+			</select><br>
+       <b>選擇日期:</b><br>
+                    開始日期:<input name="order_time_start" id="f_date1" type="date"><br>
+		結束日期:<input name="order_time_end" id="f_date2" type="date"><br>
+		<b>選擇金額:</b><br>
+		大於多少<input type="TEXT" name="order_amosum_start" size="45"  value="" /><br>
+		小於多少<input type="TEXT" name="order_amosum_end" size="45"  value="" /><br>
+		
+		<b>輸入廠商編號 (如ME00001):</b>
+        <input type="text" name="merchant_no"><br>
+   
+        <input type="submit" value="送出">
+        <input type="hidden" name="action" value="listorderDetail_ByCompositeQuery1">
+     </FORM>
+</div>
+
 </div>
 
 

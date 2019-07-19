@@ -111,6 +111,11 @@ public class Order_detailService {
 	public List<Order_detailVO> getAll(Map<String, String[]> map) {
 		return dao.getAll(map);
 	}
+	
+	
+	public List<Order_detailVO> getAll(Map<String, String[]> map,String merchant_no) {
+		return dao.getAll(map,merchant_no);
+	}
 
 	
 }

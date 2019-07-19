@@ -37,4 +37,7 @@ public interface Order_detailDAO_interface {
   	public List<Order_detailVO> getAllOneDayOfMerchantNo(String order_time_start,String order_time_end,String merchant_no);
   	
   	
+  	//萬用複合查詢(傳入參數型態Map)(回傳 List)
+    public List<Order_detailVO> getAll(Map<String, String[]> map,String merchant_no); 
+  	
 }

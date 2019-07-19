@@ -768,7 +768,15 @@ public class Order_detailServlet extends HttpServlet {
 					HashMap<String, String[]> map1 = new HashMap<String, String[]>(req.getParameterMap());
 					session.setAttribute("map",map1);
 					map = map1;
-				} 
+				}
+				
+				
+//				map.get("merchant_no");
+//				System.out.println(map.get("merchant_no"));
+//
+//				map.remove("merchant_no");
+//				System.out.println(map.remove("merchant_no"));
+				
 				
 				/***************************2.開始複合查詢***************************************/
 				Order_detailService order_detailSvc = new Order_detailService();
@@ -777,6 +785,69 @@ public class Order_detailServlet extends HttpServlet {
 //				 for (Object key : map.keySet()) {
 //			            System.out.println(key + " : " + map.get(key));
 //			      }
+				
+				System.out.println("有進來Map");
+				
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("listOrder_detailByCompositeQuery", list); // 資料庫取出的list物件,存入request
+				RequestDispatcher successView = req.getRequestDispatcher("back-end/order_detail/listOrder_detailByCompositeQuery.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("back-end/order_detail/order_detail_select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+		
+		
+		
+		//萬用複合查詢(傳入參數型態Map)(回傳 List)+merchant_no
+		if ("listorderDetail_ByCompositeQuery1".equals(action)) { // 來自select_page.jsp的複合查詢請求
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			System.out.println("有進來Servlet");
+
+			try {
+				
+				/***************************1.將輸入資料轉為Map**********************************/ 
+				//採用Map<String,String[]> getParameterMap()的方法 
+				//注意:an immutable java.util.Map 
+				//Map<String, String[]> map = req.getParameterMap();
+				HttpSession session = req.getSession();
+				
+				String merchant_no = req.getParameter("merchant_no").trim();
+				System.out.println(merchant_no);
+				
+				Map<String, String[]> map = (Map<String, String[]>)session.getAttribute("map");
+				
+				
+				map.remove("merchant_no");
+				
+//				 for (Object key : map.keySet()) {
+//				 System.out.println(key + " : " + map.get(key));
+//				 }
+				 
+
+				System.out.println(map);
+				if (req.getParameter("whichPage") == null){
+					HashMap<String, String[]> map1 = new HashMap<String, String[]>(req.getParameterMap());
+					session.setAttribute("map",map1);
+					map = map1;
+				}
+							
+				
+				/***************************2.開始複合查詢***************************************/
+				Order_detailService order_detailSvc = new Order_detailService();
+				List<Order_detailVO> list  = order_detailSvc.getAll(map,merchant_no);
 				
 				System.out.println("有進來Map");
 				
