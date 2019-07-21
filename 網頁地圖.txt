@@ -1,0 +1,43 @@
+[MerchantView]
+	|
+	|	
+	MerchantLogin2.jsp---成功---MerchantLogin.jsp(位置:/front-end/merchant/Index下)
+	(廠商專區登入孔)		(廠商首頁)
+					|	(廠商資料)
+					|---MerchantUpdate.jsp(位置:/front-end/merchant/Index下)
+					|	修改---控制器---MerchantUpdate.jsp(位置:/front-end/merchant下)
+					|				送出修改---控制器---MerchantUpdate.jsp(位置:/front-end/merchant/Index下)
+					|	(廣告)
+					|---MerchantPromotion.jsp
+					|	*inclue:OnlyOnePromotionOfMerchant.jsp(位置:/front-end/promotion下)
+					|	|	修改---控制器---PromotionUpdate.jsp(位置:/front-end/promotion下)
+					|	|				|
+					|	|				|---送出修改---控制器---MerchantPromotion.jsp(位置:/front-end/merchant/Index下)
+					|	|				|
+					|	|				|---下架---控制器---MerchantPromotion.jsp(位置:/front-end/merchant/Index下)
+					|	|	(新增廣告)				
+					|	|---addPromotion.jsp
+					|		|
+					|		|---送出新增---控制器---MerchantPromotion.jsp(位置:/front-end/merchant/Index下)
+					|		|	(筆:快速新增)
+					|		|---addPromotion2.jsp
+					|			送出新增---控制器---MerchantPromotion.jsp(位置:/front-end/merchant/Index下)						
+					|
+					|
+					|---MerchantOrder.jsp
+					|	|*inclue:OnlyOneOrderDetailOfMerchant.jsp(位置:/front-end/order_detail下)	
+					|	|	選擇訂單狀態---控制器---get_OneStatus_Order_detail.jsp(位置:front-end/order_detail下)
+					|	|
+					|	|---order_detail.jsp(位置:/front-end/order_detail下)
+					|		送出---控制器---order_detailOfDay.jsp(位置:/front-end/order_detail下)	
+					|			
+					|
+					|---MerchantProduct.jsp
+					|
+					|
+					|
+					|
+					|
+					|
+					|
+					|		
