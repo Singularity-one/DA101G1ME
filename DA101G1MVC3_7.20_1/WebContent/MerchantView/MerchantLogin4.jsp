@@ -56,7 +56,7 @@
 			</table>
 	</form>
 	<ul>
-  		<li><a href='<%=request.getContextPath()%>/front-end/merchant/addMerchant.jsp'>Add</a> a new Merchant.</li>
+  		<li><a href='<%=request.getContextPath()%>/front-end/merchant/addMerchant2.jsp'>Add</a> a new Merchant.</li>
   		<li><a href='<%=request.getContextPath()%>/front-end/productreport/addProductreport.jsp'>°Ó«~ÀËÁ|</a></li>
   		<li><a href='<%=request.getContextPath()%>/front-end/deposit/addDeposit.jsp'>Àx­È</a></li>
 	</ul>

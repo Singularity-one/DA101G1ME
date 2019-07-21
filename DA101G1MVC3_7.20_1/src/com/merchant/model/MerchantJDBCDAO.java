@@ -697,20 +697,20 @@ public class MerchantJDBCDAO implements MerchantDAO_interface {
 		
 		
 		// 查詢單一狀態有關廠商
-		List<MerchantVO> list = dao.getOneStatusOfAll("A2");
-		for (MerchantVO aMerchant : list) {
-			System.out.print(aMerchant.getMerchant_no() + ",");
-			System.out.print(aMerchant.getMerchant_id() + ",");
-			System.out.print(aMerchant.getMerchant_pass() + ",");
-			System.out.print(aMerchant.getMerchant_name() + ",");
-			System.out.print(aMerchant.getMerchant_pm() + ",");
-			System.out.print(aMerchant.getMerchant_add() + ",");
-			System.out.print(aMerchant.getMerchant_tel() + ",");
-			System.out.print(aMerchant.getMerchant_email() + ",");
-			System.out.print(aMerchant.getMerchant_status() + ",");
-			System.out.print(aMerchant.getMerchant_img() + ",");
-			System.out.println();
-		}
+//		List<MerchantVO> list = dao.getOneStatusOfAll("A2");
+//		for (MerchantVO aMerchant : list) {
+//			System.out.print(aMerchant.getMerchant_no() + ",");
+//			System.out.print(aMerchant.getMerchant_id() + ",");
+//			System.out.print(aMerchant.getMerchant_pass() + ",");
+//			System.out.print(aMerchant.getMerchant_name() + ",");
+//			System.out.print(aMerchant.getMerchant_pm() + ",");
+//			System.out.print(aMerchant.getMerchant_add() + ",");
+//			System.out.print(aMerchant.getMerchant_tel() + ",");
+//			System.out.print(aMerchant.getMerchant_email() + ",");
+//			System.out.print(aMerchant.getMerchant_status() + ",");
+//			System.out.print(aMerchant.getMerchant_img() + ",");
+//			System.out.println();
+//		}
 		
 		
 		

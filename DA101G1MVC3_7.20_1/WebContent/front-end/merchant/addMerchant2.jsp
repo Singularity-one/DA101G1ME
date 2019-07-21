@@ -715,7 +715,7 @@ $(function () {
 	
 	
 </table><br>
-<input type="hidden" name="action" value="insert">
+<input type="hidden" name="action" value="insert2">
 <input type="hidden" name="merchant_status" value="A1">
 <input type="submit" value="°e¥X·s¼W"></FORM>
 </div>
