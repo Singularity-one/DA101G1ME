@@ -117,7 +117,7 @@
   
   
 <div class="outer">
-	<img src="<%=request.getContextPath()%>/MerchantView/image/test1.jpg" id="cover">
+	<img src="<%=request.getContextPath()%>/front-end/merchant/images/test1.jpg" id="cover">
 	<div class="container">
 		<div class="row justify-content-center top">
 			<div>

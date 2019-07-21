@@ -62,6 +62,7 @@ public class MerchantLogin extends HttpServlet {
 	      HttpSession session = req.getSession();
 	      session.setAttribute("merchant_id", merchant_id);//*工作1: 才在session內做已經登入過的標識
 	      session.setAttribute("merchant_no", merchantVO.getMerchant_no());
+	      session.setAttribute("merchant_name", merchantVO.getMerchant_name());
 	      
 	       try {                                                        
 	         String location = (String) session.getAttribute("location");

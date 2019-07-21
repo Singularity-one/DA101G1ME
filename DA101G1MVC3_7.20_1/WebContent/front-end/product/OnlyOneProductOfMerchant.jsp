@@ -53,7 +53,7 @@
 	<tr style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;" >
 		<th>商品編號</th>
 		<th>廠商編號</th>
-		<th>商品名稱</th>
+		<th style=" width: 100px;">商品名稱</th>
 		<th>商品狀態</th>
 		<th>商品價格</th>
 		<th>商品種類</th>

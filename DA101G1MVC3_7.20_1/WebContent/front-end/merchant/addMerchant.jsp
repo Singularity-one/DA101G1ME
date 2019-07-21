@@ -621,7 +621,7 @@ $(function () {
   <body>
 <div class="outer">
 <div class="outer">
-	<img src="<%=request.getContextPath()%>/MerchantView/image/test1.jpg" id="cover">
+	<img src="<%=request.getContextPath()%>/front-end/merchant/images/test1.jpg" id="cover">
 	<div class="container">
 		<div class="row justify-content-center top">
 			<div>
@@ -648,6 +648,10 @@ $(function () {
 
 <jsp:useBean id="merchantSvc" scope="page" class="com.merchant.model.MerchantService" />
 
+    <div>
+    <a href="<%=request.getContextPath()%>/MerchantServlet1?action=get_One_Merchant">&#10001;</a>
+	</div>
+	
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/MerchantServlet1" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>
@@ -724,7 +728,9 @@ $(function () {
 <%--<img src="<%=request.getContextPath()%>/MerchantImageShow?merchant_no=${merchantVO.merchant_no}" width="300vm"  height="200vm" style="width:375px; hight=360px;"> --%>
  	<img id="preview_progressbarTW_img" src="<%=request.getContextPath()%>/MerchantImageShow?merchant_no=${merchantVO.merchant_no}" width="300vm"  height="200vm" style="width:375px; hight=360px;" />
     </div>
+    
 
+	
 <script>
 function readURL(input){
 

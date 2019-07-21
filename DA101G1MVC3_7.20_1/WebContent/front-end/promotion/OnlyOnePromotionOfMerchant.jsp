@@ -5,7 +5,7 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 
-<%=session.getAttribute("merchant_no")%>
+<%-- <%=session.getAttribute("merchant_no")%> --%>
   
 <%  	
 	PromotionService promotionSvc = new PromotionService();
@@ -49,9 +49,9 @@
 <table style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;" >
 	<tr style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
 		<th>商品編號</th>
-		<th>廣告名稱</th>
-		<th>開始日期</th>
-		<th>結束日期</th>
+		<th style=" width: 100px;">廣告名稱</th>
+		<th style=" width: 100px;">開始日期</th>
+		<th style=" width: 100px;">結束日期</th>
 		<th>促銷折扣</th>
 		<th>廣告說明</th>
 		<th>廣告狀態</th>

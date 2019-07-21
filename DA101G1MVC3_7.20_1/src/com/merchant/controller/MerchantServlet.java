@@ -8,8 +8,11 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.merchant.model.MerchantService;
 import com.merchant.model.MerchantVO;
+
 
 @WebServlet("/MerchantServlet1")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -545,6 +548,54 @@ public class MerchantServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		
+		//快速產生廠商
+		if ("get_One_Merchant".equals(action)) {
+			
+//			Gson gson = new Gson();
+			// 遇到日期格式資料，在創建gson物件同時也指定日期格式 (Client - Server需一致)
+			//Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			
+//			String jsonStr = "";			
+			
+			try {
+				// Retrieve form parameters.
+				MerchantVO merchantVO1 = new MerchantVO();
+				merchantVO1.setMerchant_id("Kadokawa");
+				merchantVO1.setMerchant_pass("Kadokawa");
+				merchantVO1.setMerchant_name("台灣角川");
+				merchantVO1.setMerchant_pm("藍鳳凰");
+				merchantVO1.setMerchant_add("105台北市松山區光復北路11巷44號");
+				merchantVO1.setMerchant_tel(" (02)27472433");
+				merchantVO1.setMerchant_email("service@kadokawa.com.tw");
+				merchantVO1.setMerchant_status("A1");
+				merchantVO1.setMerchant_ps("簡稱為台角，是日本角川集團在台灣設立的出版公司");
+
+				
+//				// Object to JSON
+//				jsonStr = gson.toJson(merchantVO1);
+//				System.out.println("Object to JSON: " + jsonStr);
+//				// JSON to Object
+//				System.out.println("JSON to Object: ");
+//				MerchantVO myMerchant = gson.fromJson(jsonStr, MerchantVO.class);
+				
+							
+				req.setAttribute("NewMerchantVO", merchantVO1); // JSON,存入req
+				
+				// 取出的empVO送給listOneEmp.jsp
+				RequestDispatcher successView = req
+						.getRequestDispatcher("/front-end/merchant/addMerchant2.jsp");
+				successView.forward(req, res);
+				return;
+
+				// Handle any unusual exceptions
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+			
+		}
+		
 		
 		
 	}

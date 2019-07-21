@@ -26,7 +26,7 @@ public class MerchantJDBCDAO implements MerchantDAO_interface {
 		
 		//輸入帳號登入用,傳回將session加入廠商編號
 		private static final String GET_TWO_IDandPASS = 
-				"SELECT merchant_no,merchant_id,merchant_pass FROM merchant where merchant_id = ?";
+				"SELECT merchant_no,merchant_id,merchant_pass,merchant_name FROM merchant where merchant_id = ?";
 		
 		 // 查詢單一廠商用編號並MerchantVO傳回VO
 		private static final String GET_ONE_ALLVO = 
@@ -357,6 +357,7 @@ public class MerchantJDBCDAO implements MerchantDAO_interface {
 				merchantVO.setMerchant_no(rs.getString("merchant_no"));
 				merchantVO.setMerchant_id(rs.getString("merchant_id"));
 				merchantVO.setMerchant_pass(rs.getString("merchant_pass"));
+				merchantVO.setMerchant_name(rs.getString("merchant_name"));
 	
 			}
 

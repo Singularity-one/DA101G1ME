@@ -523,6 +523,58 @@ public class PromotionServlet extends HttpServlet {
 			}
 		}
 		
+		
+		
+		
+		//快速產生廣告
+		if ("get_One_Promotion".equals(action)) {
+			
+//			Gson gson = new Gson();
+			// 遇到日期格式資料，在創建gson物件同時也指定日期格式 (Client - Server需一致)
+			//Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			
+//			String jsonStr = "";			
+			
+			try {
+				// Retrieve form parameters.
+				PromotionVO promotionVO1 = new PromotionVO();
+				promotionVO1.setMerchant_no("ME00001");
+				promotionVO1.setProduct_no("PR00001");
+				promotionVO1.setPromotion_name("香蕉蛋捲");
+				promotionVO1.setPromotion_start(java.sql.Date.valueOf("2019-07-01"));
+				promotionVO1.setPromotion_end(java.sql.Date.valueOf("2019-8-31"));
+				promotionVO1.setPromotion_pr(new Double(0.9));
+				promotionVO1.setPromotion_ps("旗山的北蕉來製作香蕉蛋捲是用手工製作，手工製作的蛋捲口感比機器製作的較酥脆扎實有層次感。鮮緹的香蕉蛋捲雖然是手工製作，但是我們定時定量，所以做出來的每一支蛋捲品質都是一致的。因為使用新鮮的香蕉，在經過兩百度左右高溫後，天然水果不會殘留太多的果香，所以香蕉蛋捲吃在嘴裡只有一股淡淡的香蕉味。");
+				promotionVO1.setPromotion_status("B1");
+
+				
+//				// Object to JSON
+//				jsonStr = gson.toJson(merchantVO1);
+//				System.out.println("Object to JSON: " + jsonStr);
+//				// JSON to Object
+//				System.out.println("JSON to Object: ");
+//				MerchantVO myMerchant = gson.fromJson(jsonStr, MerchantVO.class);
+				
+							
+				req.setAttribute("NewPromotionVO", promotionVO1); // JSON,存入req
+				
+				// 取出的empVO送給listOneEmp.jsp
+				RequestDispatcher successView = req
+						.getRequestDispatcher("/front-end/promotion/addPromotion2.jsp");
+				successView.forward(req, res);
+				return;
+
+				// Handle any unusual exceptions
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+			
+		}
+		
+		
+		
+		
+		
 
 
 

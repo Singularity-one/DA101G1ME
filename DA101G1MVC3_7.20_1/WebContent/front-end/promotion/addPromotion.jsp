@@ -115,7 +115,7 @@ PromotionVO promotionVO = (PromotionVO) request.getAttribute("promotionVO");
   <body>
 <div class="outer">
 <div class="outer">
-	<img src="<%=request.getContextPath()%>/MerchantView/image/test1.jpg" id="cover">
+	<img src="<%=request.getContextPath()%>/front-end/merchant/images/test1.jpg" id="cover">
 	<div class="container">
 		<div class="row justify-content-center top">
 			<div>
@@ -141,6 +141,10 @@ PromotionVO promotionVO = (PromotionVO) request.getAttribute("promotionVO");
 </c:if>
 
 <jsp:useBean id="promotionSvc" scope="page" class="com.promotion.model.PromotionService" />
+
+ 	<div>
+    <a href="<%=request.getContextPath()%>/PromotionServlet1?action=get_One_Promotion">&#10001;</a>
+	</div>
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/PromotionServlet1" name="form1" enctype="multipart/form-data">
 <table>
@@ -173,8 +177,9 @@ PromotionVO promotionVO = (PromotionVO) request.getAttribute("promotionVO");
 	</tr>
 	<tr>
 		<td>廣告說明:</td>
-		<td><input type="TEXT" name="promotion_ps" size="45" 
-			 value="<%= (promotionVO==null)? "天下第一蕉比武大會" : promotionVO.getPromotion_ps()%>" /></td>
+<!-- 		<td><input type="TEXT" name="promotion_ps" size="45"  -->
+<%-- 			 value="<%= (promotionVO==null)? "天下第一蕉比武大會" : promotionVO.getPromotion_ps()%>" /></td> --%>
+		<td><textarea  name="promotion_ps" style="width:400px;height:120px;"></textarea></td>
 	</tr>
 	<tr>
 		<td>廣告狀態:</td>

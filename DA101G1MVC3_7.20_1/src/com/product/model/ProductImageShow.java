@@ -53,7 +53,7 @@ Connection con;
 				in.close();
 			} else {
 //				res.sendError(HttpServletResponse.SC_NOT_FOUND);
-				InputStream in = getServletContext().getResourceAsStream("/NoData/no.png");
+				InputStream in = getServletContext().getResourceAsStream("/NoData/images.jpeg");
 				byte[] b = new byte[in.available()];
 				in.read(b);
 				out.write(b);
@@ -63,7 +63,7 @@ Connection con;
 			stmt.close();
 		} catch (Exception e) {
 //			System.out.println(e);
-			InputStream in = getServletContext().getResourceAsStream("/NoData/null.png");
+			InputStream in = getServletContext().getResourceAsStream("/NoData/404.png");
 			byte[] b = new byte[in.available()];
 			in.read(b);
 			out.write(b);

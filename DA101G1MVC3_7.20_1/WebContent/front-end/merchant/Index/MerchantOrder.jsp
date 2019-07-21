@@ -100,7 +100,7 @@
   <body>
   
 <div class="outer">
-	<img src="<%=request.getContextPath()%>/MerchantView/image/test1.jpg" id="cover">
+	<img src="<%=request.getContextPath()%>/front-end/merchant/images/test1.jpg" id="cover">
 	<div class="container">
 		<div class="row justify-content-center top">
 			<div>
@@ -130,7 +130,7 @@
 					<div class="list-group-item" style="font-family:monospace;font-size: 18px;"><b>選單</b></div>
 					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantUpdate.jsp" class="list-group-item" style="font-size: 15px;">廠商資料</a>
 					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantOrder.jsp" class="list-group-item" style="font-size: 15px;">訂單</a>
-					<a href="<%=request.getContextPath()%>/front-end/order_detail/order_detail.jsp" class="list-group-item" style="font-size: 15px;">當日訂單</a>
+					<a href="<%=request.getContextPath()%>/front-end/order_detail/order_detail.jsp" class="list-group-item" style="font-size: 15px;">訂單日期</a>
 					<a href="<%=request.getContextPath()%>/front-end/merchant/Index/MerchantLogin.jsp" class="list-group-item" style="font-size: 15px;">回廠商頁面</a>
 				</div>
 			</div>

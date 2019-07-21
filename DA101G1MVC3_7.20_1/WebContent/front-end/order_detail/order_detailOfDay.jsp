@@ -4,7 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.order_detail.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
-<%=session.getAttribute("merchant_no")%>
+<%-- <%=session.getAttribute("merchant_no")%> --%>
 <%
 		List<Order_detailVO> list = (List<Order_detailVO>) session.getAttribute("getOrder_detail_Day"); //EmpServlet.java(Concroller), 存入req的merchantVO物件
 		pageContext.setAttribute("list",list);
@@ -50,7 +50,7 @@
 </head>
 <body bgcolor='white'>
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
+<!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -65,7 +65,7 @@
 	<tr style="border-top:3px #4682B4 solid;border-bottom:3px #4682B4 solid;">
 		<th>訂單編號</th>
 		<th>會員編號</th>
-		<th>廠商編號</th>
+<!-- 		<th>廠商編號</th> -->
 		<th>訂單狀態</th>
 		<th>訂單總金額</th>
 		<th>訂單時間</th>
@@ -81,7 +81,7 @@
 <%-- 			<td>${order_detailVO.order_no}</td> --%>
 			<td><A href="<%=request.getContextPath()%>/Order_listServlet1?order_no=${order_detailVO.order_no}&merchant_no=<%=session.getAttribute("merchant_no")%>&action=getOne_From05">${order_detailVO.order_no}</a></td>
 			<td>${order_detailVO.mem_no}</td>
-			<td>${order_detailVO.merchant_no}</td>
+<%-- 			<td>${order_detailVO.merchant_no}</td> --%>
 			<td>
 			<c:set var="order_status" value="${order_detailVO.order_status}"/>
 				<c:if test="${order_status == 'O1'}">

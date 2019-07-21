@@ -128,7 +128,7 @@
   </head>
   <body>
 <div class="outer">
-	<img src="<%=request.getContextPath()%>/MerchantView/image/test1.jpg" id="cover">
+	<img src="<%=request.getContextPath()%>/front-end/merchant/images/test1.jpg" id="cover">
 	<div class="container">
 		<div class="row justify-content-center top">
 			<div>
@@ -155,9 +155,9 @@
 				
 			</div>
 			<div class="col-5 right"">
-				<p class="title">PROFILE</p>
-				<p class="title-2">LANGUAGE</p>
-				<p class="lang"><%=session.getAttributeNames() %>
+				<p class="title"><%=session.getAttribute("merchant_name")%>&nbsp;您好!</p>
+<!-- 				<p class="title-2">LANGUAGE</p> -->
+<%-- 				<p class="lang"><%=session.getAttributeNames() %> --%>
 				</p>
 				<%-- 錯誤表列 --%>
 					<c:if test="${not empty errorMsgs}">
@@ -169,8 +169,8 @@
 					</ul>
 					</c:if>
 				</p>
-				<p class="title-2">HOBBY</p>
-				<p class="title-2">SELF-INTRODUCTION</p>
+<!-- 				<p class="title-2">HOBBY</p> -->
+<!-- 				<p class="title-2">SELF-INTRODUCTION</p> -->
 				<p style="padding-top: 20px;line-height:36px;letter-spacing:2px;"></p>
 				
 			</div>
