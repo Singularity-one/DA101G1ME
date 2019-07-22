@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
 <%@ page import="com.merchant.model.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
@@ -76,7 +77,18 @@
 		<td><%=merchantVO.getMerchant_add()%></td>
 		<td><%=merchantVO.getMerchant_tel()%></td>
 		<td><%=merchantVO.getMerchant_email()%></td>
-		<td><%=merchantVO.getMerchant_status()%></td>
+		<td><%=merchantVO.getMerchant_status()%>
+		<c:set var="Merchant_status" value="<%=merchantVO.getMerchant_status()%>"/>
+				<c:if test="${Merchant_status == 'A1'}">
+                		<%= "未審核"%>
+				</c:if>
+				<c:if test="${Merchant_status == 'A2'}">
+						<%= "正常"%>
+				</c:if>
+				<c:if test="${Merchant_status == 'A3'}">
+						<%= "下架"%>
+				</c:if>
+		</td>
 		<td><%=merchantVO.getMerchant_ps()%></td>
 		<td><img src="<%=request.getContextPath()%>/MerchantImageShow?merchant_no=${merchantVO.merchant_no}" width="300vm"  height="200vm"></td>
 <%-- 		<td><img src="<%=request.getContextPath()%>/MerchantImageShow?merchant_no=${merchantVO.merchant_no}" width="300vm"  height="200vm"><td>		 --%>

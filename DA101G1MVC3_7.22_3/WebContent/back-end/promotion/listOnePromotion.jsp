@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
 <%@ page import="com.promotion.model.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 	PromotionVO promotionVO = (PromotionVO) request.getAttribute("promotionVO"); //PromotionServlet.java(Concroller), 存入req的promotionVO物件
@@ -71,7 +72,18 @@
 		<td><%=promotionVO.getPromotion_end()%></td>
 		<td><%=promotionVO.getPromotion_pr()%></td>
 		<td><%=promotionVO.getPromotion_ps()%></td>
-		<td><%=promotionVO.getPromotion_status()%></td>
+		<td>
+		<c:set var="Promotion_status" value="<%=promotionVO.getPromotion_status()%>"/>
+		<c:if test="${Promotion_status == 'B1'}">
+                	<%= "未審核"%>
+		</c:if>
+		<c:if test="${Promotion_status == 'B2'}">
+					<%= "正常"%>
+		</c:if>
+		<c:if test="${Promotion_status == 'B3'}">
+					<%= "下架"%>
+		</c:if>
+		</td>
 		<td><img src="<%=request.getContextPath()%>/PromotionImageShow?promotion_no=${promotionVO.promotion_no}" width="300vm"  height="200vm"></td>
 	</tr>
 </table>

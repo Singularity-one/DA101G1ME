@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
 <%@ page import="com.productreport.model.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 ProductreportVO productreportVO = (ProductreportVO) request.getAttribute("productreportVO"); //ProductreportServlet.java(Concroller), 存入req的productreportVO物件
 %>
@@ -146,7 +147,18 @@ background-color:black;
 		<td><%=productreportVO.getProductreport_no()%></td>
 		<td><%=productreportVO.getProduct_no()%></td>
 		<td><%=productreportVO.getReportcon_no()%></td>
-		<td><%=productreportVO.getReportcon_status()%></td>
+		<td>
+		<c:set var="Reportcon_status" value="<%=productreportVO.getReportcon_status()%>"/>
+				<c:if test="${Reportcon_status == 'PR1'}">
+                		<%= "未審核"%>
+				</c:if>
+				<c:if test="${Reportcon_status == 'PR2'}">
+						<%= "審核通過"%>
+				</c:if>
+				<c:if test="${Reportcon_status == 'PR3'}">
+						<%= "審核未通過"%>
+				</c:if>
+		</td>
 	</tr>
 </table>
 

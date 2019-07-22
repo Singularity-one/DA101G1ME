@@ -97,12 +97,12 @@
 			<td>${order_detailVO.order_cusadr}</td>
 			<td>${order_detailVO.order_cusname}</td>
 			<td>${order_detailVO.order_cusphone}</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" style="margin-bottom: 0px;">
-			     <input type="submit" value="н╫зя">
-			     <input type="hidden" name="order_no"  value="${order_detailVO.order_no}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
+<!-- 			<td> -->
+<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Order_detailServlet1" style="margin-bottom: 0px;"> --%>
+<!-- 			     <input type="submit" value="н╫зя"> -->
+<%-- 			     <input type="hidden" name="order_no"  value="${order_detailVO.order_no}"> --%>
+<!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM> -->
+<!-- 			</td> -->
 		</tr>
 	</c:forEach>
 </table>
