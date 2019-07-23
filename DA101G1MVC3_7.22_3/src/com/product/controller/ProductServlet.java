@@ -333,36 +333,6 @@ public class ProductServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-//		
-//		
-//		if ("delete".equals(action)) { // 來自listAllEmp.jsp
-//
-//			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
-//			req.setAttribute("errorMsgs", errorMsgs);
-//	
-//			try {
-//				/***************************1.接收請求參數***************************************/
-//				Integer empno = new Integer(req.getParameter("empno"));
-//				
-//				/***************************2.開始刪除資料***************************************/
-//				EmpService empSvc = new EmpService();
-//				empSvc.deleteEmp(empno);
-//				
-//				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-//				String url = "/emp/listAllEmp.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-//				successView.forward(req, res);
-//				
-//				/***************************其他可能的錯誤處理**********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/emp/listAllEmp.jsp");
-//				failureView.forward(req, res);
-//			}
-//		}
         
         
         
@@ -683,12 +653,54 @@ public class ProductServlet extends HttpServlet {
 		}
       
       
-  
+      
+    //快速產生商品
+    if ("get_One_Product".equals(action)) {
+    			
+//    	Gson gson = new Gson();
+    	// 遇到日期格式資料，在創建gson物件同時也指定日期格式 (Client - Server需一致)
+    	//Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+    			
+//    	String jsonStr = "";			
+    			
+    	try {
+    		
+        	ProductVO productVO1 = new ProductVO();
+        	productVO1.setMerchant_no("ME00001");
+        	productVO1.setProduct_name("月世界土雞");
+        	productVO1.setProduct_status("C1");
+        	productVO1.setProduct_pr(120);
+        	productVO1.setProduct_typ("農產品");
+        	productVO1.setProduct_pn("D2");
+        	productVO1.setProduct_ps("雞出的去，人進的來，高雄發大財");
+    		productVO1.setProduct_quan(1);
+
+    				
+//    		// Object to JSON
+//    		jsonStr = gson.toJson(merchantVO1);
+//    		System.out.println("Object to JSON: " + jsonStr);
+//    		// JSON to Object
+//    		System.out.println("JSON to Object: ");
+//    		MerchantVO myMerchant = gson.fromJson(jsonStr, MerchantVO.class);
+    				
+    							
+    		req.setAttribute("NewProductVO", productVO1); // JSON,存入req
+    				
+    		// 取出的empVO送給listOneEmp.jsp
+    		RequestDispatcher successView = req
+    				.getRequestDispatcher("/front-end/product/addProduct2.jsp");
+    		successView.forward(req, res);
+    		return;
+
+    		// Handle any unusual exceptions
+    	} catch (Exception e) {
+    				throw new ServletException(e);
+    	}
+    			
+    }
       
       
-        
-
-
+      
 
 	}
 }

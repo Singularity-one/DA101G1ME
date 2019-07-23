@@ -168,7 +168,8 @@
 	</tr>
 	<tr>
 	<td>商品說明:</td>
-		<td><input type="TEXT" name="product_ps" size="45" value="<%=productVO.getProduct_ps()%>" /></td>
+<%-- 		<td><input type="TEXT" name="product_ps" size="45" value="<%=productVO.getProduct_ps()%>" /></td> --%>
+	<td><textarea  name="product_ps" style="width:400px;height:120px;"><%=productVO.getProduct_ps()%></textarea></td>
 	</tr>
 	<tr>
 		<td>商品圖片:</td>

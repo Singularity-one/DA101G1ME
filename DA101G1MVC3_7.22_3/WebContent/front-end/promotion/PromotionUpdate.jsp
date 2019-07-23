@@ -177,7 +177,8 @@ PromotionVO promotionVO = (PromotionVO) request.getAttribute("promotionVO"); //M
 	</tr>
 	<tr>
 		<td>廣告說明:</td>
-		<td><input type="TEXT" name="promotion_ps" size="45" value="<%=promotionVO.getPromotion_ps()%>" /></td>
+<%-- 		<td><input type="TEXT" name="promotion_ps" size="45" value="<%=promotionVO.getPromotion_ps()%>" /></td> --%>
+		<td><textarea  name="promotion_ps" style="width:400px;height:120px;"><%=promotionVO.getPromotion_ps()%></textarea></td>
 	</tr>
 	<tr>
 		<td>廣告狀態:</td>

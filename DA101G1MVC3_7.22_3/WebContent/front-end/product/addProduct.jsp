@@ -126,7 +126,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("ProductVO");
 			<div class="col-2">
 	</div>
 <div class="col-5 right">
-<p class="title">申請廣告</p>
+<p class="title">申請商品</p>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -138,6 +138,10 @@ ProductVO productVO = (ProductVO) request.getAttribute("ProductVO");
 </c:if>
 
 <jsp:useBean id="productSvc" scope="page" class="com.product.model.ProductService" />
+
+ 	<div>
+    <a href="<%=request.getContextPath()%>/ProductServlet1?action=get_One_Product">&#10001;</a>
+	</div>
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ProductServlet1" name="form1" enctype="multipart/form-data">
 <table>
@@ -170,8 +174,9 @@ ProductVO productVO = (ProductVO) request.getAttribute("ProductVO");
 	</tr>
 	<tr>
 		<td>商品說明:</td>
-		<td><input type="TEXT" name="product_ps" size="45"
-			 value="<%= (productVO==null)? "666666" : productVO.getProduct_ps()%>" /></td>
+<!-- 		<td><input type="TEXT" name="product_ps" size="45" -->
+<%-- 			 value="<%= (productVO==null)? "666666" : productVO.getProduct_ps()%>" /></td> --%>
+		<td><textarea  name="product_ps" style="width:400px;height:120px;"></textarea></td>
 	</tr>
 	<tr>
 		<td>商品圖片:</td>
